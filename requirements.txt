@@ -1,0 +1,8 @@
+django==2.2.*
+django-crispy-forms
+psycopg2-binary
+pdfrw
+pypdftk
+django-crontab
+linode_api4
+django-countries
