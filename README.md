@@ -52,4 +52,9 @@ You should now have a development version of the My Buisness` accessible at `loc
 
 *If you want My Buisness to send emails to the console while developing, edit `my-buisness/common/settings.py` and replace the value of `EMAIL_BACKED` with `'django.core.mail.backends.console.EmailBackend'`. Don't forget to undo this before committing!*
 
+# Deployment
+
+*Follow the installation instructions before continuing. If you are running the Django server, press Control-C to close it.*
+
+*Make sure you have `root` privileges.*
 
