@@ -58,3 +58,5 @@ You should now have a development version of the My Buisness` accessible at `loc
 
 *Make sure you have `root` privileges.*
 
+<p align="center"><a href="https://github.com/yezz123"><img src="http://randojs.com/images/barsSmall.gif" alt="Animated footer bars" width="100%"/></a></p>
+
