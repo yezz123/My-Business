@@ -57,6 +57,37 @@ You should now have a development version of the My Buisness` accessible at `loc
 *Follow the installation instructions before continuing. If you are running the Django server, press Control-C to close it.*
 
 *Make sure you have `root` privileges.*
+## Django configuration
+
+1. Collect the static files (by default in `/var/www/my-buisness/static/`) using `$ python manage.py collectstatic`.
+
+2. Generate a `SECRET_KEY` using `$ python -c 'from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())'`.
+
+3. Copy the returned key to your clipboard because we will need it soon.
+
+4. Edit `config.ini` with your preferred text editor and replace the current `SECRET_KEY` with the one you generated earlier (it's in your clipboard, right!?).
+
+## Firewall configuration
+**If you have a firewall set up (recommended), make sure to open ports 80 and 443.**
+
+- If you have `UFW` set up:
+  - Run `$ ufw allow http`.
+  - Run `$ ufw allow https`.
+
+- If don't have `UFW` and have only `iptables` set up:
+  - Open `/etc/sysconfig/iptables` for editing using your preferred text editor.
+  - Add the following lines to the file if they do not already exist, then save and exit:
+```
+-A INPUT -m state --state NEW -p tcp --dport 80 -j ACCEPT
+-A INPUT -m state --state NEW -p tcp --dport 443 -j ACCEPT
+```
+
+## Installing additional dependencies
+- Install Gunicorn using `$ pip install gunicorn`.
+- Install Nginx using `$ apt install nginx`.
+- Install Certbot using `$ apt install python3-certbot-nginx`.
+
+*Note: Make sure to edit the file and directory paths accordingly in the instructions below.*
 
 <p align="center"><a href="https://github.com/yezz123"><img src="http://randojs.com/images/barsSmall.gif" alt="Animated footer bars" width="100%"/></a></p>
 
