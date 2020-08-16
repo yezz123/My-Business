@@ -91,3 +91,68 @@ You should now have a development version of the My Buisness` accessible at `loc
 
 <p align="center"><a href="https://github.com/yezz123"><img src="http://randojs.com/images/barsSmall.gif" alt="Animated footer bars" width="100%"/></a></p>
 
+## Setting up the Gunicorn service
+- Edit `/etc/systemd/system/gunicorn_bt.socket` using your preferred text editor and add the following to the file:
+```
+[Unit]
+Description=gunicorn bt socket
+
+[Socket]
+ListenStream=/run/gunicorn_bt.sock
+
+[Install]
+WantedBy=sockets.target
+```
+- Edit `/etc/systemd/system/gunicorn_bt.service` using your preferred text editor and add the following to the file:
+```
+[Unit]
+Description=gunicorn bt daemon
+Requires=gunicorn_bt.socket
+After=network.target
+
+[Service]
+User=www-data
+Group=www-data
+WorkingDirectory=/srv/my-buisness
+ExecStart=/srv/business-tracer/venv/bin/gunicorn \
+          --access-logfile - \
+          --workers 3 \
+          --bind unix:/run/gunicorn_bt.sock \
+          common.wsgi:application
+
+[Install]
+WantedBy=multi-user.target
+```
+- Start the Gunicorn socket using `$ systemctl start gunicorn_bt.socket`.
+- Enable the Gunicorn socket (to run at startup) using `$ systemctl enable gunicorn_bt.socket`.
+
+## Setting up Nginx
+- Remove the `default` configuration from `sites-enabled` using `$ rm /etc/nginx/sites-enabled/default`.
+- Edit `/etc/nginx/sites-available/blog` using your preferred text editor and add the following to the file:
+
+*Note: Make sure to replace `YOUR_FULLY_QUALIFIED_DOMAIN_NAME` with your [FQDN](https://en.wikipedia.org/wiki/Fully_qualified_domain_name).
+
+```
+server {
+    listen 80;
+    server_name YOUR_FULLY_QUALIFIED_DOMAIN_NAME;
+
+    location = /favicon.ico { access_log off; log_not_found off; }
+
+    location /static/ {
+        root /var/www/my-buisness;
+    }
+
+    location /media/ {
+        root /var/www/my-buisness;
+    }
+
+    location / {
+        include proxy_params;
+        proxy_pass http://unix:/run/gunicorn_bt.sock;
+    }
+}
+```
+
+- Enable the Nginx config using `$ ln -s /etc/nginx/sites-available/my-buisness /etc/nginx/sites-enabled/my-buisness`.
+- Restart Nginx using `$ systemctl restart nginx`.
