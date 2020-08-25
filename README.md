@@ -1,4 +1,4 @@
-<p align="center"> <img src="https://www.mybusiness.com.au/images/my-business-logo.png">
+<p align="center"> <img src="https://miro.medium.com/max/2600/1*ZuM5Oa59qIP1mVIV8C-WUw.gif">
 
 
 # About
