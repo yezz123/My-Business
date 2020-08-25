@@ -89,8 +89,6 @@ You should now have a development version of the My Buisness` accessible at `loc
 
 *Note: Make sure to edit the file and directory paths accordingly in the instructions below.*
 
-<p align="center"><a href="https://github.com/yezz123"><img src="http://randojs.com/images/barsSmall.gif" alt="Animated footer bars" width="100%"/></a></p>
-
 ## Setting up the Gunicorn service
 - Edit `/etc/systemd/system/gunicorn_bt.socket` using your preferred text editor and add the following to the file:
 ```
@@ -156,3 +154,15 @@ server {
 
 - Enable the Nginx config using `$ ln -s /etc/nginx/sites-available/my-buisness /etc/nginx/sites-enabled/my-buisness`.
 - Restart Nginx using `$ systemctl restart nginx`.
+
+## Setting up the HTTPS certificate
+
+*Note: Make sure to replace `YOUR_FULLY_QUALIFIED_DOMAIN_NAME` with your [FQDN](https://en.wikipedia.org/wiki/Fully_qualified_domain_name).
+
+- Create an HTTPS certificate with Certbot using `$ certbot --nginx -d YOUR_FULLY_QUALIFIED_DOMAIN_NAME`.
+- Follow the script instructions.
+- You should choose option 2 (Redirect) when the script asks if you want users to be redirected to the `HTTPS` version of the website if they try accessing the `HTTP` version.
+
+Good job! You should now have a running instance of My Buisness.
+
+<p align="center"><a href="https://github.com/yezz123"><img src="http://randojs.com/images/barsSmall.gif" alt="Animated footer bars" width="100%"/></a></p>
