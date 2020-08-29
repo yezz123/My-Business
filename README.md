@@ -165,6 +165,8 @@ server {
 
 Good job! You should now have a running instance of My Buisness.
 
+# Social Media account:
+
 <a href="https://discord.gg/XXKxMpq">
   <img align="left" alt="yezz123's Discord" width="22px" src="https://cdn.jsdelivr.net/npm/simple-icons@v3/icons/discord.svg" />
 </a>
@@ -177,5 +179,10 @@ Good job! You should now have a running instance of My Buisness.
 <a href="https://www.reddit.com/user/SVWBEIII/">
   <img align="left" alt="yezz123's Reddit" width="22px" src="https://cdn.jsdelivr.net/npm/simple-icons@v3/icons/reddit.svg" />
 </a>
+
+----------------------------------------------
+
+<a href="https://paypal.me/yassertahiri" target="_blank">
+<img src="https://img.shields.io/static/v1?label=Sponsor&message=%E2%9D%A4&logo=GitHub&link=%3Curl%3E&color=f88379"></a>
 
 <p align="center"><a href="https://github.com/yezz123"><img src="http://randojs.com/images/barsSmall.gif" alt="Animated footer bars" width="100%"/></a></p>
