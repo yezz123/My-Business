@@ -1,0 +1,31 @@
+; Do not modify this file!
+; It contains the default settings for Business Tracker.
+; Edit config.ini for changing the settings.
+
+[core] ; Immutable at runtime - Use pipes to separate multiple hosts
+SECRET_KEY=6sag&yt+t7&)q!$!d$63(z(&57yx=wz=s*o)l_q338a0vlnx1q
+ALLOWED_HOSTS=*
+DEBUG=true
+STATIC_ROOT=/var/www/business_tracker/static/
+MEDIA_ROOT=/var/www/business_tracker/media/
+
+[database] ; Immutable at runtime
+DATABASE_NAME=business_tracker
+DATABASE_USER=business_tracker
+DATABASE_PASSWORD=business_tracker
+
+[email]
+EMAIL_HOST=
+EMAIL_PORT=587
+EMAIL_USER=
+EMAIL_PASSWORD=
+EMAIL_USE_TLS=true
+
+[accounts]
+WEEKLY_HOURS=40
+
+[invoices]
+OVERDUE_DAYS=30
+
+[servers]
+LINODE_API_TOKEN=
