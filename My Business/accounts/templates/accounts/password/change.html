@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block title %}Change Password{% endblock title %}
+{% block subtitle %}You will be logged out after changing your password.{% endblock subtitle %}
+
+{% block content %}
+<form novalidate method="post">
+    {% csrf_token %}
+    {{ form|crispy }}
+    <hr>
+    <div class="form-actions">
+        <button type="submit" class="btn btn-success btn-detail">
+            <i class="fas fa-check fa-fw mr-1"></i>
+            Save
+        </button>
+        <a class="btn btn-secondary btn-detail" href="{{ request.GET.next }}">
+            <i class="fas fa-times-circle fa-fw mr-1"></i>
+            Cancel
+        </a>
+    </div>
+</form>
+{% endblock content %}

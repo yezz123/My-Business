@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block extra_head %}
+<script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
+<link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" />
+{% endblock extra_head %}
+
+{% block title %}Edit Shift{% endblock title %}
+{% block subtitle %}Edit the work shift entry.{% endblock subtitle %}
+
+{% block content %}
+<form novalidate method="post">
+    {% csrf_token %}
+    <div class="row">
+        <div class="col-12 col-xl-6">
+            {{ form.description|as_crispy_field }}
+        </div>
+        <div class="col-12 col-xl-6">
+            {{ form.project|as_crispy_field }}
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-12 col-xl-6">
+            {{ form.duration|as_crispy_field }}
+        </div>
+        <div class="col-12 col-xl-6">
+            {{ form.date|as_crispy_field }}
+        </div>
+    </div>
+    <hr>
+    <div class="form-actions">
+        <button type="submit" class="btn btn-success btn-detail">
+            <i class="fas fa-check fa-fw mr-1"></i>
+            Save
+        </button>
+        <a class="btn btn-secondary btn-detail" href="{{ request.GET.next }}">
+            <i class="fas fa-times-circle fa-fw mr-1"></i>
+            Cancel
+        </a>
+    </div>
+</form>
+<script>
+    $('#id_date').datepicker({
+        uiLibrary: 'bootstrap4',
+        modal: true,
+        format: 'yyyy-mm-dd',
+        icons: {
+            rightIcon: '<i class="fas fa-calendar-day"></i>'
+        }
+    });
+</script>
+{% endblock content %}

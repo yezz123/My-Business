@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}Delete Shift{% endblock title %}
+{% block subtitle %}The work shift will be deleted.{% endblock subtitle %}
+
+{% block content %}
+<form novalidate method="post">
+    {% csrf_token %}
+    <div class="form-group">
+        <p>
+            Are you sure you want to proceed?
+            <br>
+            This action is <span class="text-danger">irreversible</span>.
+        </p>
+    </div>
+    <hr>
+    <div class="form-actions">
+        <button type="submit" class="btn btn-danger btn-detail">
+            <i class="fas fa-trash fa-fw mr-1"></i>
+            Delete
+        </button>
+        <a class="btn btn-secondary btn-detail" href="{{ request.GET.next }}">
+            <i class="fas fa-times-circle fa-fw mr-1"></i>
+            Cancel
+        </a>
+    </div>
+</form>
+{% endblock content %}

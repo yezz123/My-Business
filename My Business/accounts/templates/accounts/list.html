@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block title %}Accounts{% endblock title %}
+{% block subtitle %}All the user accounts are listed here.{% endblock subtitle %}
+
+{% block content %}
+<table id="jsTable" class="table list-view nowrap" style="width: 100%;">
+    <thead>
+        <tr>
+            <th scope="col">First Name</th>
+            <th scope="col">Last Name</th>
+            <th scope="col">Email</th>
+            <th scope="col">Type</th>
+            <th scope="col">
+                <a class="btn btn-sm btn-success" href="{% url 'accounts:create' %}?next={{ request.get_full_path }}">
+                    <i class="fas fa-plus fa-fw"></i>
+                    Create Account
+                </a>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for account in accounts %}
+        <tr>
+            <td>{{ account.first_name }}</td>
+            <td>{{ account.last_name }}</td>
+            <td>{{ account.email }}</td>
+            <td>{{ account.is_superuser|yesno:"Manager,Developer" }}</td>
+            <td>
+                <a class="btn btn-sm btn-info" href="{% url 'accounts:detail' uid=account.uid %}" title="View Account">
+                    <i class="fas fa-eye fa-fw"></i>
+                </a>
+                <a class="btn btn-sm btn-warning" href="{% url 'accounts:edit' uid=account.uid %}?next={{ request.get_full_path }}" title="Edit Account">
+                    <i class="fas fa-pen fa-fw"></i>
+                </a>
+                <a class="btn btn-sm btn-danger" href="{% url 'accounts:delete' uid=account.uid %}?next={{ request.get_full_path }}" title="Delete Account">
+                    <i class="fas fa-trash fa-fw"></i>
+                </a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock content %}

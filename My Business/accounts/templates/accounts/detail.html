@@ -1,0 +1,157 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block title %}{{ account.get_full_name }}{% endblock title %}
+{% block subtitle %}View the account information.{% endblock subtitle %}
+
+{% block content %}
+<div class="container-fluid no-gutters">
+    <div class="row pt-3">
+        <div class="col-xl-6 px-0 pr-xl-3">
+            <h2 class="text-uppercase font-weight-bold">Account Information</h2>
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <th scope="row">Type</th>
+                        <td>{{ account.is_superuser|yesno:"Manager,Developer" }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">First Name</th>
+                        <td>{{ account.first_name }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Last Name</th>
+                        <td>{{ account.last_name }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Email</th>
+                        <td><a href="mailto:{{ account.email }}">{{ account.email }}</a></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Address Line 1</th>
+                        <td>{{ account.address1 }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Address Line 2</th>
+                        <td>{{ account.address2 }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">City</th>
+                        <td>{{ account.city }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">State / Region / Province</th>
+                        <td>{{ account.state }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">ZIP / Postal Code</th>
+                        <td>{{ account.zipcode }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Country</th>
+                        <td>{{ account.country.name }} <img src="{{ account.country.flag }}"></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Last Login</th>
+                        <td>{{ account.last_login }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-xl-6 px-0 pl-xl-3">
+            <h2 class="text-uppercase font-weight-bold">Work Shifts</h2>
+            <table id="jsDetailTable" class="table table-sm nowrap" style="width: 100%;">
+                <thead>
+                    <tr>
+                        <th scope="col">Description</th>
+                        <th scope="col">Duration</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Project</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for shift in account.shifts.all %}
+                    <tr>
+                        <td>{{ shift.description }}</td>
+                        <td>{{ shift }}</td>
+                        <td>{{ shift.date }}</td>
+                        <td>{{ shift.project }}</td>
+                        <td>
+                            {% if request.user.uid == account.uid %}
+                            <a class="btn btn-sm btn-warning" href="{% url 'accounts:shifts_edit' uid=shift.uid %}?next={{ request.get_full_path }}"
+                                title="Edit Shift">
+                                <i class="fas fa-pen fa-fw"></i>
+                            </a>
+                            <a class="btn btn-sm btn-danger" href="{% url 'accounts:shifts_delete' uid=shift.uid %}?next={{ request.get_full_path }}"
+                                title="Delete Shift">
+                                <i class="fas fa-trash fa-fw"></i>
+                            </a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<hr>
+<div class="container-fluid no-gutters">
+    <div class="row">
+        {% if request.user.is_superuser %}
+        {% if not request.GET.personal %}
+        <a class="btn btn-dark btn-detail" href="{% url 'accounts:list' %}">
+            <i class="fas fa-arrow-left"></i>
+        </a>
+        {% endif %}
+        {% if account.is_superuser %}
+        <a class=" btn btn-primary btn-detail mx-2" href="{% url 'accounts:type' uid=account.uid %}?next={{ request.get_full_path }}">
+            <i class="fas fa-sync-alt fa-fw mr-1"></i>
+            Make Developer
+        </a>
+        {% else %}
+        <a class=" btn btn-primary btn-detail mx-2" href="{% url 'accounts:type' uid=account.uid %}?next={{ request.get_full_path }}">
+            <i class="fas fa-sync-alt fa-fw mr-1"></i>
+            Make Manager
+        </a>
+        {% endif %}
+        {% endif %}
+        {% if request.user.uid == account.uid %}
+        <a class="btn btn-secondary btn-detail mx-2" href="{% url 'accounts:password_change' uid=account.uid %}?next={{ request.get_full_path }}">
+            <i class="fas fa-key fa-fw mr-1"></i>
+            Change Password
+        </a>
+        {% endif %}
+        <a class="btn btn-warning btn-detail mx-2" href="{% url 'accounts:edit' uid=account.uid %}?next={{ request.get_full_path }}">
+            <i class="fas fa-pen fa-fw mr-1"></i>
+            Edit Account
+        </a>
+        <a class="btn btn-danger btn-detail mx-2" href="{% url 'accounts:delete' uid=account.uid %}?next=/accounts/&cancel={{ request.get_full_path }}">
+            <i class="fas fa-trash fa-fw mr-1"></i>
+            Delete Account
+        </a>
+    </div>
+</div>
+<script>
+    table = $('#jsDetailTable').DataTable({
+        responsive: true,
+        dom: '<"row no-gutters flex-nowrap"<"flex-grow-1"f><"flex-shrink-0 ml-1"p>>t',
+        pagingType: "numbers",
+        pageLength: 10,
+        ordering: false,
+        language: {
+            lengthMenu: "_MENU_",
+            search: "_INPUT_",
+            searchPlaceholder: "Search"
+        },
+        columnDefs: [
+            {
+                targets: [0, -1],
+                responsivePriority: 1
+            }]
+    });
+    $('#jsDetailTable_filter').removeClass('dataTables_filter');
+    $('#jsDetailTable_filter > label').contents().unwrap();
+</script>
+{% endblock content %}
