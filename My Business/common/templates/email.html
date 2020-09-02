@@ -1,0 +1,103 @@
+{% load static %}
+{% load i18n %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>
+    </title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <style type="text/css">
+        body {
+            background-color: #FFFFFF;
+            width: 100%;
+            padding: 0;
+            margin: 0;
+        }
+
+        #main {
+            width: 100%;
+            padding: 0;
+            margin: 0;
+        }
+
+        #header {
+            margin: 0;
+            padding: 16px 0 16px;
+            font-family: 'Arial', sans-serif;
+            font-weight: 700;
+            font-size: 32px;
+            color: #000000;
+            text-align: center;
+            border-bottom: 4px solid #202020;
+        }
+
+        #message {
+            padding: 0;
+            margin: 128px auto 128px;
+            width: 480px;
+            font-family: 'Arial', sans-serif;
+            font-weight: 700;
+            font-size: 48px;
+            color: #000000;
+            text-align: center;
+        }
+
+        #message>p {
+            margin: 0 0 64px;
+            padding: 0
+        }
+
+        #message>a {
+            margin: 0;
+            padding: 0;
+            font-size: 24px;
+            text-decoration: none;
+        }
+
+        .footer {
+            padding: 8px;
+            border-top: 4px solid #202020;
+            background: #000000;
+            color: #808080;
+            font-family: Arial;
+            text-transform: uppercase;
+            font-weight: 500
+        }
+
+        .footer p {
+            margin: 8px;
+            font-size: 8px;
+            text-align: center;
+        }
+
+        .footer a {
+            font-size: 12px;
+            text-align: center;
+            text-decoration: none;
+        }
+
+        .footer-logos {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="main">
+        <div>
+            <h1 id="header">Business Tracker</h1>
+        </div>
+        <div id="message">
+            <p>{{ message }}</p>
+            <a href="{{ url }}">{{ button }}</a>
+        </div>
+        <div class="footer footer-logos">
+            <p>Copyright &copy; 2020</p>
+            <a href="https://novawebdevelopment.com/">NOVA Web Development</a>
+        </div>
+    </div>
+</body>
+
+</html>

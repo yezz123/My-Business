@@ -1,0 +1,38 @@
+{% load static %}
+<div class="sidenav">
+    <a class="link-unstyled" href="https://businesstracker.org/" style="margin: 0">
+        <img class="img-fluid d-block mx-auto" src="{% static 'img/logo.png' %}">
+    </a>
+    <div class="sidenav-controls">
+        {% if user.is_authenticated %}
+        <a href="{% url 'dashboard' %}"><i class="fas fa-clone fa-fw mr-2"></i>Dashboard</a>
+        <a href="{% url 'accounts:shifts_create' %}"><i class="fas fa-clock fa-fw mr-2"></i>Track Hours</a>
+        <div>
+            <hr>
+        </div>
+        {% if user.is_superuser %}
+        <a href="{% url 'accounts:list' %}"><i class="fas fa-users fa-fw mr-2"></i>Accounts</a>
+        {% endif %}
+        <a href="{% url 'invoices:list' %}"><i class="fas fa-file-invoice-dollar fa-fw mr-2"></i>Invoices</a>
+        <a href="{% url 'partners:list' %}"><i class="fas fa-user-friends fa-fw mr-2"></i>Partners</a>
+        <a href="{% url 'servers:list' %}"><i class="fas fa-server fa-fw mr-2"></i>Servers</a>
+        <div>
+            <hr>
+        </div>
+        {% if user.is_superuser %}
+        <a href="{% url 'settings' %}"><i class="fas fa-cog fa-fw mr-2"></i>Settings</a>
+        {% endif %}
+        <a href="{% url 'accounts:detail' uid=user.uid %}?personal=true"><i class="fas fa-user fa-fw mr-2"></i>My Account</a>
+        <a href="{% url 'accounts:logout' %}"><i class="fas fa-sign-out-alt fa-fw mr-2"></i>Log out</a>
+        {% else %}
+        <a href="{% url 'accounts:login' %}"><i class="fas fa-sign-in-alt fa-fw mr-2"></i>Login</a>
+        <a href="{% url 'accounts:password_reset' %}"><i class="fas fa-key fa-fw mr-2"></i>Reset Password</a>
+        {% endif %}
+    </div>
+    <a class="link-unstyled" href="https://novawebdevelopment.org/" style="margin: 0">
+        <img class="img-fluid d-block mx-auto" src="{% static 'img/novawebdevelopment.png' %}">
+    </a>
+    <button type="button" class="btn sidenav-button" onclick="toggleSidebar()">
+        <i class="fas fa-chevron-right"></i>
+    </button>
+</div>

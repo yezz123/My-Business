@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+
+{% block title %}Dashboard{% endblock title %}
+{% block subtitle %}Quick actions are displayed here for your convenience.{% endblock subtitle %}
+
+{% block content %}
+<style>
+    .dashboard-body ul {
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        margin: 0;
+        padding: 0;
+        grid-gap: 1rem;
+        list-style: none;
+        list-style-position: inside;
+    }
+
+    .dashboard-body ul li .card {
+        height: 16rem;
+    }
+
+    @media (min-width: 900px) {
+        .dashboard-body ul {
+            grid-template-columns: repeat(2, 2fr);
+        }
+    }
+
+    @media (min-width: 1200px) {
+        .dashboard-body ul {
+            grid-template-columns: repeat(3, 3fr);
+        }
+    }
+
+    @media (min-width: 1600px) {
+        .dashboard-body ul {
+            grid-template-columns: repeat(4, 4fr);
+        }
+    }
+</style>
+<div class="dashboard-body core-font">
+    <ul>
+        <li>
+            <div class="card">
+                <div class="card-header w-100">
+                    <h5 class="text-uppercase m-0">Create Invoice</h5>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">Create an invoice for your existing partners!</p>
+                </div>
+                <div class="card-footer w-100">
+                    <a class="btn btn-success" href="{% url 'invoices:create' %}"><i class="fas fa-plus"></i></a>
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="card">
+                <div class="card-header w-100">
+                    <h5 class="text-uppercase m-0">Create Partner</h5>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">Create a new partner!</p>
+                </div>
+                <div class="card-footer w-100">
+                    <a class="btn btn-success" href="{% url 'partners:create' %}"><i class="fas fa-plus"></i></a>
+                </div>
+            </div>
+        </li>
+        {% for invoice in invoices %}
+        <li>
+            <div class="card">
+                <div class="card-header w-100">
+                    <h5 class="text-uppercase m-0">View <span class="text-secondary">{{ invoice.invoice_id }}</span></h5>
+                </div>
+                <div class="card-body">
+                    {% if invoice.status == 2 %}
+                    <p>The partner failed to pay on time. Make sure to contact them and/or suspend their services!</p>
+                    {% else %}
+                    <p>The status of this invoice is not final so we thought it might be of interest!</p>
+                    {% endif %}
+                    <p class="card-text">{{ invoice.get_html_status }}</p>
+                </div>
+                <div class="card-footer w-100">
+                    <a class="btn btn-info" href="{% url 'invoices:pdf' uid=invoice.uid %}"><i class="fas fa-file-pdf"></i></a>
+                </div>
+            </div>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock content %}

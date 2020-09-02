@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block extra_head %}
+<script src="https://cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.min.js"></script>
+{% endblock extra_head %}
+
+{% block title %}Settings{% endblock title %}
+{% block subtitle %}Change Business Tracker settings.{% endblock subtitle %}
+
+{% block content %}
+<form novalidate enctype="multipart/form-data" method="post">
+    {% csrf_token %}
+    <div id="div_{{ form.invoice_template.id_for_label }}" class="form-group">
+        <label for="{{ form.invoice_template.id_for_label }}">{{ form.invoice_template.label }}</label>
+        <div class="custom-file">
+            <input type="file" name="{{ form.invoice_template.name }}" class="custom-file-input" id="{{ form.invoice_template.id_for_label }}"
+                accept="application/pdf">
+            <label class="custom-file-label" for="{ form.invoice_template.id_for_label }}">Choose PDF file</label>
+            {% if form.invoice_template.help_text %}
+            <small id="hint_{{ form.invoice_template.name }}" class="form-text text-muted">{{ form.invoice_template.help_text }}</small>
+            {% endif %}
+        </div>
+    </div>
+    <hr>
+    {{ form.email_host|as_crispy_field }}
+    {{ form.email_port|as_crispy_field }}
+    {{ form.email_user|as_crispy_field }}
+    {{ form.email_password|as_crispy_field }}
+    <div class="form-group">
+        <div id="div_{{ form.email_use_tls.id_for_label }}" class="custom-control custom-checkbox">
+            <input type="checkbox" class="custom-control-input" name="{{ form.email_use_tls.name }}" id="{{ form.email_use_tls.id_for_label }}"
+                {% if form.email_use_tls.value %} checked {% endif %}>
+            <label class="custom-control-label" for="{{ form.email_use_tls.id_for_label }}">{{ form.email_use_tls.label }}</label>
+            {% if form.email_use_tls.help_text %}
+            <small id="hint_{{ form.email_use_tls.name }}" class="form-text text-muted">{{ form.email_use_tls.help_text }}</small>
+            {% endif %}
+        </div>
+    </div>
+    <hr>
+    {{ form.weekly_hours|as_crispy_field }}
+    {{ form.overdue_days|as_crispy_field }}
+    <hr>
+    <div class="form-actions">
+        <button type="submit" class="btn btn-success btn-detail">
+            <i class="fas fa-check fa-fw mr-1"></i>
+            Save
+        </button>
+    </div>
+</form>
+<script>
+    $(document).ready(function () {
+        bsCustomFileInput.init()
+    })
+</script>
+{% endblock content %}
