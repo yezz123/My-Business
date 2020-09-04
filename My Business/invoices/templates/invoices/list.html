@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block title %}Invoices{% endblock title %}
+{% block subtitle %}All the invoices are listed here.{% endblock subtitle %}
+
+{% block content %}
+<table id="jsTable" class="table list-view nowrap" style="width: 100%;">
+    <thead>
+        <tr>
+            <th scope="col">Invoice ID</th>
+            <th scope="col">Partner</th>
+            <th scope="col">Status</th>
+            <th scope="col">Total</th>
+            <th scope="col">
+                {% if user.is_superuser %}
+                <a class="btn btn-sm btn-success" href="{% url 'invoices:create' %}?next={{ request.get_full_path }}">
+                    <i class="fas fa-plus fa-fw"></i>
+                    Create Invoice
+                </a>
+                {% endif %}
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for invoice in invoices %}
+        <tr>
+            <td>{{ invoice.invoice_id }}</td>
+            <td>{{ invoice.partner.company }}</td>
+            <td>{{ invoice.get_html_status }}</td>
+            <td>${{ invoice.get_total }}</td>
+            <td>
+                <a class="btn btn-sm btn-info" href="{% url 'invoices:pdf' uid=invoice.uid %}" title="View PDF">
+                    <i class="fas fa-file-pdf fa-fw"></i>
+                </a>
+                {% if user.is_superuser %}
+                <a class="btn btn-sm btn-warning" href="{% url 'invoices:edit' uid=invoice.uid %}?next={{ request.get_full_path }}" title="Edit Invoice">
+                    <i class="fas fa-pen fa-fw"></i>
+                </a>
+                {% if invoice.status == 0 %}
+                <a class="btn btn-sm btn-danger" href="{% url 'invoices:delete' uid=invoice.uid %}?next={{ request.get_full_path }}" title="Delete Invoice">
+                    <i class="fas fa-trash fa-fw"></i>
+                </a>
+                {% endif %}
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<hr>
+<div class="container-fluid no-gutters">
+    <div class="row">
+        <a class="btn btn-outline-secondary btn-detail {{ paid_btn.active }}" data-toggle="button" aria-pressed="{{ paid_btn.pressed }}"
+            href="{% url 'invoices:list' %}{{ paid_btn.href }}">
+            {{ paid_btn.text }} <span class="badge badge-success font-weight-normal"><i class='fas fa-check fa-fw'></i> PAID</span>
+        </a>
+        <a class="btn btn-outline-secondary btn-detail {{ void_btn.active }}" data-toggle="button" aria-pressed="{{ void_btn.pressed }}"
+            href="{% url 'invoices:list' %}{{ void_btn.href }}">
+            {{ void_btn.text }} <span class="badge badge-danger font-weight-normal"><i class='fas fa-ban fa-fw'></i> VOID</span>
+        </a>
+    </div>
+</div>
+{% endblock content %}

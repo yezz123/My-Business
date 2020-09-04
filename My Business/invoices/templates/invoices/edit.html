@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% load crispy_forms_field %}
+
+{% block title %}Edit Invoice{% endblock title %}
+{% block subtitle %}Edit the invoice or its items.{% endblock subtitle %}
+
+{% block content %}
+<form novalidate method="post" action="" id="invoiceForm">
+    {% csrf_token %}
+    {{ form|crispy }}
+    {% if formset %}
+    <table id="id_items_table" class="table">
+        <thead>
+            <tr>
+                <th scope="col" width="50%">Description</th>
+                <th scope="col" width="15%" class="item-table">Hours</th>
+                <th scope="col" width="15%" class="item-table">Rate</th>
+                <th scope="col" width="15%" class="item-table">Amount</th>
+                <th scope="col" width="5%"></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for form in formset.forms %}
+            {% for fld in form.hidden_fields %}{{ fld }}{% endfor %}
+            <tr id="{{ form.prefix }}-row">
+                <td>
+                    {% crispy_field form.description 'class' 'form-control form-control-sm' %}
+                    {% if form.description.errors %}
+                    <div class="invalid-feedback">
+                        {% for error in form.description.errors %}
+                        <strong>{{ error }}</strong>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                </td>
+                <td>
+                    {% crispy_field form.hours 'class' 'form-control form-control-sm' %}
+                    {% if form.hours.errors %}
+                    <div class="invalid-feedback">
+                        {% for error in form.hours.errors %}
+                        <strong>{{ error }}</strong>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                </td>
+                <td>
+                    {% crispy_field form.rate 'class' 'form-control form-control-sm' %}
+                    {% if form.rate.errors %}
+                    <div class="invalid-feedback">
+                        {% for error in form.rate.errors %}
+                        <strong>{{ error }}</strong>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                </td>
+                <td>
+                    {% crispy_field form.amount 'class' 'form-control form-control-sm' %}
+                    {% if form.amount.errors %}
+                    <div class="invalid-feedback">
+                        {% for error in form.amount.errors %}
+                        <strong>{{ error }}</strong>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                </td>
+                <td class="btn-delete-container">{% if form.instance.pk %}{{ form.DELETE }}{% endif %}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <p>
+        {{ formset.management_form }}
+    </p>
+    {% else %}
+    <hr>
+    <p>The invoice items are not editable.</p>
+    {% endif %}
+    <hr>
+    <div class="form-actions">
+        <button type="submit" class="btn btn-success btn-detail">
+            <i class="fas fa-check fa-fw mr-1"></i>
+            Save
+        </button>
+        <a class="btn btn-secondary btn-detail" href="{{ request.GET.next }}">
+            <i class="fas fa-times-circle fa-fw mr-1"></i>
+            Cancel
+        </a>
+    </div>
+</form>
+<script type="text/javascript">
+    $(function () {
+        $('#id_items_table tbody tr').formset({
+            prefix: 'items'
+        })
+    })
+</script>
+{% endblock content %}
