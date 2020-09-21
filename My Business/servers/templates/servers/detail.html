@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block title %}{{ linode.label }}{% endblock title %}
+{% block subtitle %}View the server information.{% endblock subtitle %}
+
+{% block content %}
+<div class="container-fluid no-gutters">
+    <div class="row pt-3">
+        <div class="col-xl-6 px-0 pr-xl-3">
+            <h2 class="text-uppercase font-weight-bold">Linode Information</h2>
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <th scope="row">ID</th>
+                        <td>{{ server.uid }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Label</th>
+                        <td>{{ linode.label }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Type</th>
+                        <td>{{ linode.type.label }}: ${{ linode.type.price.monthly }}0/mo</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Operating System</th>
+                        <td>{{ linode.image.label }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">IP Address</th>
+                        <td class="d-flex justify-content-between">
+                            <p class="m-0 p-0" id="ipAddress">{{ linode.ipv4.0 }}</p>
+                            <button class="btn btn-sm btn-outline-secondary ml-2" id="ipAddressButton">
+                                <i class="fas fa-copy fa-fw"></i>
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Root Password</th>
+                        <td class="d-flex justify-content-between">
+                            <p class="m-0 p-0" id="rootPassword">{{ server.root_password }}</p>
+                            <button class="btn btn-sm btn-outline-info ml-2" href="#" data-toggle="button" id="rootPasswordButton">
+                                <i class="fas fa-eye fa-fw"></i>
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Status</th>
+                        <td>
+                            <span class="badge badge-{{ status }} font-weight-normal text-uppercase">{{ linode.status }}</span>
+                            <span class="badge badge-secondary font-weight-normal text-uppercase">{{ linode.region.id }}</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-xl-6 px-0 pl-xl-3">
+            <h2 class="text-uppercase font-weight-bold">Services Information</h2>
+            <table class="table">
+                <tbody>
+                    {% for line in server.get_services %}
+                    <tr>
+                        <th scope="row">Services</th>
+                        <td>{{ line|urlize }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<hr>
+<div class="container-fluid no-gutters">
+    <div class="row">
+        <a class="btn btn-dark btn-detail" href="{% url 'servers:list' %}">
+            <i class="fas fa-arrow-left"></i>
+        </a>
+        <a class="btn btn-primary btn-detail" id="consoleButton" href="https://cloud.linode.com/linodes/{{ server.uid }}/lish/weblish">
+            <i class="fas fa-terminal mr-1"></i>
+            Launch Console
+        </a>
+        {% if user.is_superuser %}
+        <a class="btn btn-warning btn-detail" href="{% url 'servers:edit' uid=server.uid %}?next={{ request.get_full_path }}">
+            <i class="fas fa-pen mr-1"></i>
+            Edit Server
+        </a>
+        <a class="btn btn-danger btn-detail" href="{% url 'servers:delete' uid=server.uid %}?next=/servers/&cancel={{ request.get_full_path }}">
+            <i class="fas fa-trash mr-1"></i>
+            Delete Server
+        </a>
+        {% endif %}
+    </div>
+</div>
+{% endblock content %}
