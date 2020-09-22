@@ -1,18 +1,18 @@
 ; Do not modify this file!
-; It contains the default settings for Business Tracker.
+; It contains the default settings for My business.
 ; Edit config.ini for changing the settings.
 
 [core] ; Immutable at runtime - Use pipes to separate multiple hosts
 SECRET_KEY=6sag&yt+t7&)q!$!d$63(z(&57yx=wz=s*o)l_q338a0vlnx1q
 ALLOWED_HOSTS=*
 DEBUG=true
-STATIC_ROOT=/var/www/business_tracker/static/
-MEDIA_ROOT=/var/www/business_tracker/media/
+STATIC_ROOT=/var/www/My-business/static/
+MEDIA_ROOT=/var/www/My-business/media/
 
 [database] ; Immutable at runtime
-DATABASE_NAME=business_tracker
-DATABASE_USER=business_tracker
-DATABASE_PASSWORD=business_tracker
+DATABASE_NAME=My-business
+DATABASE_USER=My-business
+DATABASE_PASSWORD=My-business
 
 [email]
 EMAIL_HOST=

@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block title %}Edit Partner{% endblock title %}
+{% block subtitle %}Edit the partner information while keeping all the data intact.{% endblock subtitle %}
+
+{% block content %}
+<form novalidate method="post">
+    {% csrf_token %}
+    <div class="row">
+        <div class="col-12 col-xl-6">
+            {{ form.partner_id|as_crispy_field }}
+        </div>
+        <div class="col-12 col-xl-6">
+            {{ form.company|as_crispy_field }}
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-12">
+            {{ form.contact_name|as_crispy_field }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 col-xl-6">
+            {{ form.contact_email|as_crispy_field }}
+        </div>
+        <div class="col-12 col-xl-6">
+            {{ form.contact_phone|as_crispy_field }}
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-12 col-xl-6">
+            {{ form.address1|as_crispy_field }}
+        </div>
+        <div class="col-12 col-xl-6">
+            {{ form.address2|as_crispy_field }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 col-xl-6">
+            {{ form.city|as_crispy_field }}
+        </div>
+        <div class="col-12 col-xl-6">
+            {{ form.state|as_crispy_field }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 col-xl-6">
+            {{ form.zipcode|as_crispy_field }}
+        </div>
+        <div class="col-12 col-xl-6">
+            {{ form.country|as_crispy_field }}
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-12">
+            {{ form.notes|as_crispy_field }}
+        </div>
+    </div>
+    <hr>
+    <div class="form-group">
+        <p>The Partner ID will <span class="text-danger">not</span> change despite any modifications you make on this
+            page.
+        </p>
+    </div>
+    <hr>
+    <div class="form-actions">
+        <button type="submit" class="btn btn-success btn-detail">
+            <i class="fas fa-check fa-fw mr-1"></i>
+            Save
+        </button>
+        <a class="btn btn-secondary btn-detail" href="{{ request.GET.next }}">
+            <i class="fas fa-times-circle fa-fw mr-1"></i>
+            Cancel
+        </a>
+    </div>
+</form>
+{% endblock content %}

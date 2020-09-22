@@ -1,0 +1,112 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block title %}{{ partner.company }}{% endblock title %}
+{% block subtitle %}View data about the partner.{% endblock subtitle %}
+
+{% block content %}
+<div class="container-fluid no-gutters">
+    <div class="row pt-3">
+        <div class="col-xl-6 px-0 pr-xl-3">
+            <h2 class="text-uppercase font-weight-bold">Partner Information</h2>
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <th scope="row">Partner ID</th>
+                        <td>{{ partner.partner_id }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Company / Organization / University</th>
+                        <td>{{ partner.company }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Contact Name</th>
+                        <td>{{ partner.contact_name }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Contact Email</th>
+                        <td><a href="mailto:{{ partner.contact_email }}">{{ partner.contact_email }}</a></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Contact Phone Number</th>
+                        <td>{{ partner.get_pretty_contact_phone }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Address Line 1</th>
+                        <td>{{ partner.address1 }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Address Line 2</th>
+                        <td>{{ partner.address2 }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">City</th>
+                        <td>{{ partner.city }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">State / Region / Province</th>
+                        <td>{{ partner.state }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">ZIP / Postal Code</th>
+                        <td>{{ partner.zipcode }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Notes</th>
+                        <td>{{ partner.notes }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-xl-6 px-0 pl-xl-3">
+            <h2 class="text-uppercase font-weight-bold">Partner Statistics</h2>
+            <table class="table">
+                {% with statistics=partner.get_statistics %}
+                <tbody>
+                    <tr>
+                        <th scope="row">When did we become partners?</th>
+                        <td>{{ partner.created_at|date:'DATE_FORMAT' }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">How many non-void invoices have been created for this partner?</th>
+                        <td>{{ statistics.non_void_invoices_count }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">What is the last invoice that has been sent to this partner?</th>
+                        {% if partner.get_last_invoice %}
+                        <td><a href="{% url 'invoices:pdf' uid=partner.get_last_invoice.uid %}">{{ partner.get_last_invoice }}</a></td>
+                        {% else %}
+                        <td>N/A</td>
+                        {% endif %}
+                    </tr>
+                    <tr>
+                        <th scope="row">How much has this partner been billed for?</th>
+                        <td>${{ statistics.total_billed }}</td>
+                    </tr>
+                </tbody>
+                {% endwith %}
+            </table>
+            <p class="text-center">Want more statistics? Create a feature request on Business Tracker's <a
+                    href="https://gitlab.com/novawebdevelopment/business-tracker/">GitLab</a>!</p>
+        </div>
+    </div>
+</div>
+<hr>
+<div class="container-fluid no-gutters">
+    <div class="row">
+        <a class="btn btn-dark btn-detail" href="{% url 'partners:list' %}">
+            <i class="fas fa-arrow-left"></i>
+        </a>
+        {% if user.is_superuser %}
+        <a class="btn btn-warning btn-detail" href="{% url 'partners:edit' uid=partner.uid %}?next={{ request.get_full_path }}">
+            <i class="fas fa-pen mr-1"></i>
+            Edit Partner
+        </a>
+        <a class="btn btn-danger btn-detail" href="{% url 'partners:delete' uid=partner.uid %}?next=/partners/&cancel={{ request.get_full_path }}">
+            <i class="fas fa-trash mr-1"></i>
+            Delete Partner
+        </a>
+        {% endif %}
+    </div>
+</div>
+{% endblock content %}

@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block title %}Partners{% endblock title %}
+{% block subtitle %}All the partners are listed here.{% endblock subtitle %}
+
+{% block content %}
+<table id="jsTable" class="table list-view nowrap" style="width: 100%;">
+    <thead>
+        <tr>
+            <th scope="col">Partner ID</th>
+            <th scope="col">Company / Organization / University</th>
+            <th scope="col">Contact Name</th>
+            <th scope="col">Contact Email</th>
+            <th scope="col">
+                {% if user.is_superuser %}
+                <a class="btn btn-sm btn-success" href="{% url 'partners:create' %}?next={{ request.get_full_path }}">
+                    <i class="fas fa-plus fa-fw"></i>
+                    Create Partner
+                </a>
+                {% endif %}
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for partner in partners %}
+        <tr>
+            <td>{{ partner.partner_id }}</td>
+            <td>{{ partner.company }}</td>
+            <td>{{ partner.contact_name }}</td>
+            <td><a href="mailto:{{ partner.contact_email }}">{{ partner.contact_email }}</a></td>
+            <td>
+                <a class="btn btn-sm btn-info" href="{% url 'partners:detail' uid=partner.uid %}" title="View Partner">
+                    <i class="fas fa-eye fa-fw"></i>
+                </a>
+                {% if user.is_superuser %}
+                <a class="btn btn-sm btn-warning" href="{% url 'partners:edit' uid=partner.uid %}?next={{ request.get_full_path }}" title="Edit Partner">
+                    <i class="fas fa-pen fa-fw"></i>
+                </a>
+                <a class="btn btn-sm btn-danger" href="{% url 'partners:delete' uid=partner.uid %}?next={{ request.get_full_path }}" title="Delete Partner">
+                    <i class="fas fa-trash fa-fw"></i>
+                </a>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock content %}
