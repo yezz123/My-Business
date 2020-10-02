@@ -168,8 +168,14 @@ Good job! You should now have a running instance of My Buisness.
 <h2>Social Media</h2>
 
 <p align="center">
+	<a href="https://www.instagram.com/froggy__19/">
   <code><img src="https://img.shields.io/badge/Froggy__19%20-%23E4405F.svg?&style=for-the-badge&logo=Instagram&logoColor=white"/></code>
+		</a>
+	<a href="https://www.twitch.tv/yassertahiri">
   <code><img src="https://img.shields.io/badge/yassertahiri%20-%239146FF.svg?&style=for-the-badge&logo=Twitch&logoColor=white"/></code>
+	</a>
+	<a href="https://twitter.com/THyasser1">
   <code><img src="https://img.shields.io/badge/THyasser1%20-%231DA1F2.svg?&style=for-the-badge&logo=Twitter&logoColor=white"/></code>
+  </a>
 </p>
 <p align="center"><a href="https://github.com/yezz123"><img src="http://randojs.com/images/barsSmall.gif" alt="Animated footer bars" width="100%"/></a></p>
