@@ -26,7 +26,7 @@ Make sure `Python >= 3.6` and `pip` are installed before proceeding with the ins
 
    *Note: You can safely ignore any errors about `bdist_wheel`.*
 
-7. Change the directory to `my-buisness` using `$ cd my-buisness/`.
+7. Change the directory to `My Business` using `$ cd My Business/`.
 
 8. Create `config.ini` by making of copy of `config.ini.defaults` using `$ cp config.ini.defaults config.ini`.
 
@@ -178,4 +178,3 @@ Good job! You should now have a running instance of My Buisness.
   <code><img src="https://img.shields.io/badge/THyasser1%20-%231DA1F2.svg?&style=for-the-badge&logo=Twitter&logoColor=white"/></code>
   </a>
 </p>
-<p align="center"><a href="https://github.com/yezz123"><img src="http://randojs.com/images/barsSmall.gif" alt="Animated footer bars" width="100%"/></a></p>
