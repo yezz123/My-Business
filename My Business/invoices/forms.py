@@ -39,7 +39,7 @@ class InvoiceForm(forms.ModelForm):
                         "The status cannot be advanced to OVERDUE or PAID because the invoice has not been billed yet."
                     )
             if self.instance.status == 3 and int(self.cleaned_data["status"]) == 4:
-                raise forms.ValidationError("The status cannot be advanced to VOID because the invoice has been paid.")
+                raise forms.ValidationError("The status cannot be advanced to VOID because the invoice has been paid. retry or done!")
 
 
 class ItemForm(forms.ModelForm):
