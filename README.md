@@ -177,7 +177,5 @@ Good job! You should now have a running instance of My Buisness.
 	<a href="https://twitter.com/THyasser1">
   <code><img src="https://img.shields.io/badge/THyasser1%20-%231DA1F2.svg?&style=for-the-badge&logo=Twitter&logoColor=white"/></code>
   </a>
-	<a href="https://discord.gg/Uz2vBY2">
-	 <code><img src="https://img.shields.io/badge/XO%20-%237289DA.svg?&style=for-the-badge&logo=discord&logoColor=white"/></code>
-		</a>
+
 </p>
