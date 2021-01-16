@@ -15,7 +15,7 @@ class Migration(migrations.Migration):
             name='Server',
             fields=[
                 ('uid', models.AutoField(primary_key=True, serialize=False)),
-                ('linode_label', models.CharField(help_text='EML: Mail Servers | NWD: NOVA Web Development Servers | PRT: Partner Servers', max_length=6)),
+                ('linode_label', models.CharField(help_text='EML: Mail Servers | GDGSNF: Google Developement Group Security North Africa| PRT: Partner Servers', max_length=6)),
                 ('ip_address', models.GenericIPAddressField(protocol='IPv4')),
                 ('root_password', models.CharField(max_length=32)),
                 ('services', models.TextField(help_text='Enter each service on a separate line with no commas at the end')),

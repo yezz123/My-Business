@@ -145,7 +145,7 @@ class AccountsPasswordResetTestCase(TestCase):
         """Check password reset unsuccessful (email)"""
         response = self.client.post("/accounts/password/reset/", {"email": ""}, follow=True)
         self.assertContains(response, "This field is required.")
-        response = self.client.post("/accounts/password/reset/", {"email": "stefan.nova@example.com"}, follow=True)
+        response = self.client.post("/accounts/password/reset/", {"email": "stefan.business@example.com"}, follow=True)
         self.assertContains(response, "The email is not associated with any active accounts.")
 
 
@@ -481,10 +481,10 @@ class AccountsEditTestCase(TestCase):
             f"/accounts/{self.superuser.uid}/edit/",
             {
                 "uid": self.superuser.uid,
-                "email": "stefan.nova@example.com",
-                "verify_email": "stefan.nova@example.com",
+                "email": "John.business@example.com",
+                "verify_email": "John.business@example.com",
                 "first_name": "John",
-                "last_name": "Smith",
+                "last_name": "Doe",
                 "avatar": self.user.avatar_url,
             },
             follow=True,

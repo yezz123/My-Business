@@ -7,10 +7,10 @@ class SettingsForm(forms.Form):
     invoice_template = forms.FileField(
         required=False, label="Invoice Template", help_text="Can be left empty to keep the current template"
     )
-    email_host = forms.CharField(required=False, label="Email Host", help_text="E.g. mail.novawebdevelopment.org")
+    email_host = forms.CharField(required=False, label="Email Host", help_text="E.g. mail.business.org")
     email_port = forms.IntegerField(label="Email Port")
     email_user = forms.CharField(
-        required=False, label="Email User", help_text="E.g. do-not-reply@novawebdevelopment.org"
+        required=False, label="Email User", help_text="E.g. do-not-reply@business.org"
     )
     email_password = forms.CharField(required=False, label="Email Password")
     email_use_tls = forms.BooleanField(required=False, label="Use TLS for Email")

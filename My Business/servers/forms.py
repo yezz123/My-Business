@@ -12,7 +12,7 @@ class ServerForm(forms.ModelForm):
             "services": forms.Textarea(
                 attrs={
                     "placeholder": "Follow the format: Service (Product) - URL\n"
-                    "E.g. NOVA Web Development (LibreOrganize) - novawebdevelopment.org"
+                    "E.g. GDGSNF (LibreOrganize) - gdgsnf.github.io"
                 }
             )
         }
