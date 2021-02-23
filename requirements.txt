@@ -1,4 +1,4 @@
-django==2.2.*
+django
 django-crispy-forms
 psycopg2-binary
 pdfrw
