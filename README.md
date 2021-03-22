@@ -2,7 +2,7 @@
 
 
 # About
-My Buisness is a business management tool featuring featuring accounts, invoices, partners, projects, and server.
+My Buisness is a business management tool featuring accounts, invoices, partners, projects, and server.
 
 # Installation
 
