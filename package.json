@@ -1,0 +1,20 @@
+{
+  "name": "my-business",
+  "version": "1.0.0",
+  "description": "My Buisness is a business management tool featuring accounts, invoices, partners, projects, and server.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GDGSNF/My-Business.git"
+  },
+  "keywords": [
+    "My-Business",
+    "Django",
+    "Python"
+  ],
+  "author": "Yasser Tahiri",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/GDGSNF/My-Business/issues"
+  },
+  "homepage": "https://github.com/GDGSNF/My-Business#readme"
+}
