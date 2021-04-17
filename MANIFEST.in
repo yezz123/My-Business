@@ -1,5 +1,7 @@
-include AUTHORS
-include INSTALL
+include AUTHOR
 include LICENSE
 include MANIFEST.in
 include package.json
+include requirements.txt
+include example_template.pdf
+

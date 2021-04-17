@@ -2,7 +2,7 @@
 
 
 # About
-My Buisness is a business management tool featuring accounts, invoices, partners, projects, and server.
+My Buisness is a business management tool featuring accounts, invoices, partners, projects, and server.[Wiki](https://github.com/GDGSNF/My-Business/wiki)
 
 # Installation
 
@@ -165,7 +165,10 @@ server {
 
 Good job! You should now have a running instance of My Buisness.
 
-<h2>Social Media</h2>
+# [Contributing](https://github.com/GDGSNF/My-Business/blob/master/CONTRIBUTING.md)
+
+Contributions are welcome! ♥! Please share any features, and add unit tests! Use the pull request and issue systems to contribute.
+
 <p align="center">
     <a href="https://yassertahiri.medium.com/">
     <img alt="Medium" src="https://img.shields.io/badge/Medium%20-%23000000.svg?&style=for-the-badge&logo=Medium&logoColor=white"/></a>
