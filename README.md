@@ -167,7 +167,8 @@ Good job! You should now have a running instance of My Buisness.
 
 # [Contributing](https://github.com/GDGSNF/My-Business/blob/master/CONTRIBUTING.md)
 
-Contributions are welcome! ♥! Please share any features, and add unit tests! Use the pull request and issue systems to contribute.
+- Contributions are welcome ♥
+- Please share any features, and add unit tests! Use the pull request and issue systems to contribute.
 
 <p align="center">
     <a href="https://yassertahiri.medium.com/">
