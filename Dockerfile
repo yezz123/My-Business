@@ -11,7 +11,7 @@ COPY projects /app/projects
 COPY servers /app/servers
 COPY manage.py /app
 COPY config.ini.defaults /app/config.ini.defaults
-COPY example_template /app/example_template
+COPY example_template.pdf /app/example_template.pdf
 
 RUN \
  apk add --no-cache python3 postgresql-libs && \
