@@ -1,8 +1,17 @@
 FROM alpine:3.7
 
-WORKDIR /usr/src/app
+WORKDIR /app
 
-COPY requirements.txt .
+COPY requirements.txt /app/requirements.txt
+COPY accounts /app/accounts
+COPY common /app/common
+COPY invoices /app/invoices
+COPY partners /app/partners
+COPY projects /app/projects
+COPY servers /app/servers
+COPY manage.py /app
+COPY config.ini.defaults /app/config.ini.defaults
+COPY example_template /app/example_template
 
 RUN \
  apk add --no-cache python3 postgresql-libs && \
@@ -10,6 +19,6 @@ RUN \
  python3 -m pip install -r requirements.txt --no-cache-dir && \
  apk --purge del .build-deps
 
-COPY . .
+EXPOSE 8000
 
-CMD ["python3", "app.py"]
+CMD ["python3","gunicorn","common.wsgi","--bind=0.0.0.0:8000"]
