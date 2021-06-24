@@ -33,7 +33,13 @@ INSTALLED_APPS = [
     "projects",
     "servers",
 ]
-CRONJOBS = [("0 * * * *", "invoices.cron.update_invoices_status", "2>&1 | /usr/bin/logger -t BUSINESS_TRACKER")]
+CRONJOBS = [
+    (
+        "0 * * * *",
+        "invoices.cron.update_invoices_status",
+        "2>&1 | /usr/bin/logger -t BUSINESS_TRACKER",
+    )
+]
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -63,7 +69,9 @@ TEMPLATES = [
     },
 ]
 
-TEMPLATES[0]["OPTIONS"]["context_processors"].append("invoices.context_processors.review_invoices_processor")
+TEMPLATES[0]["OPTIONS"]["context_processors"].append(
+    "invoices.context_processors.review_invoices_processor"
+)
 
 WSGI_APPLICATION = "common.wsgi.application"
 if DEBUG:
@@ -112,4 +120,4 @@ MESSAGE_TAGS = {
 CRISPY_TEMPLATE_PACK = "bootstrap4"
 AUTH_USER_MODEL = "accounts.Account"
 
-TEMPLATE_FILE = os.path.join(MEDIA_ROOT, "invoices/template.pdf")
+TEMPLATE_FILE = os.path.join("example_template.pdf")
