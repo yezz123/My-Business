@@ -24,19 +24,17 @@ _Note: If you are following these instructions when deploying My Buisness, it is
 
     _Note: You can safely ignore any errors about `bdist_wheel`._
 
-6. Change the directory to `My Business` using `$ cd My Business/`.
+6. Create `config.ini` by making of copy of `config.ini.defaults` using `$ cp config.ini.defaults config.ini`.
 
-7. Create `config.ini` by making of copy of `config.ini.defaults` using `$ cp config.ini.defaults config.ini`.
-
-8. Edit `config.ini` with your preferred text editor and make changes to the configuration (if necessary).
+7. Edit `config.ini` with your preferred text editor and make changes to the configuration (if necessary).
 
     _Note:My Buisness is using a SQLite3 database while `DEBUG=True`. You don't need to specify a database user or password._
 
-9. Apply the migrations using `$ python manage.py migrate`.
+8. Apply the migrations using `$ python manage.py migrate`.
 
-10. Create a superuser account using `$ python manage.py createsuperuser`.
+9.  Create a superuser account using `$ python manage.py createsuperuser`.
 
-11. Enable the `Cron Jobs` using `$ python manage.py crontab add`. (You need to be logged in as the user that's running the server).
+10. Enable the `Cron Jobs` using `$ python manage.py crontab add`. (You need to be logged in as the user that's running the server).
 
 You should now have a development version of the My Buisness`accessible at`localhost:8000`or`127.0.0.1:8000`.
 
