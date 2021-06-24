@@ -32,7 +32,7 @@ _Note: If you are following these instructions when deploying My Buisness, it is
 
     _Note:My Buisness is using a SQLite3 database while `DEBUG=True`. You don't need to specify a database user or password._
 
-9.  Apply the migrations using `$ python manage.py migrate`.
+9. Apply the migrations using `$ python manage.py migrate`.
 
 10. Create a superuser account using `$ python manage.py createsuperuser`.
 
@@ -44,9 +44,9 @@ You should now have a development version of the My Buisness`accessible at`local
 
 _Always activate the virtual environment before performing operations._
 
--   Run the server using `$ python manage.py runserver`.
+- Run the server using `$ python manage.py runserver`.
 
--   Stop the server by pressing `Ctrl-C`.
+- Stop the server by pressing `Ctrl-C`.
 
 _If you want My Buisness to send emails to the console while developing, edit `my-buisness/common/settings.py` and replace the value of `EMAIL_BACKED` with `'django.core.mail.backends.console.EmailBackend'`. Don't forget to undo this before committing!_
 
