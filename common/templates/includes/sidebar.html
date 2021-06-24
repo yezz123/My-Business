@@ -1,6 +1,6 @@
 {% load static %}
 <div class="sidenav">
-    <a class="link-unstyled" href="https://github.com/GDGSNF/My-Business" style="margin: 0">
+    <a class="link-unstyled" href="https://gdgsnf.tech" style="margin: 0">
         <img class="img-fluid d-block mx-auto" src="{% static 'img/logo.png' %}">
     </a>
     <div class="sidenav-controls">
@@ -22,16 +22,14 @@
         {% if user.is_superuser %}
         <a href="{% url 'settings' %}"><i class="fas fa-cog fa-fw mr-2"></i>Settings</a>
         {% endif %}
-        <a href="{% url 'accounts:detail' uid=user.uid %}?personal=true"><i class="fas fa-user fa-fw mr-2"></i>My Account</a>
+        <a href="{% url 'accounts:detail' uid=user.uid %}?personal=true"><i class="fas fa-user fa-fw mr-2"></i>My
+            Account</a>
         <a href="{% url 'accounts:logout' %}"><i class="fas fa-sign-out-alt fa-fw mr-2"></i>Log out</a>
         {% else %}
         <a href="{% url 'accounts:login' %}"><i class="fas fa-sign-in-alt fa-fw mr-2"></i>Login</a>
         <a href="{% url 'accounts:password_reset' %}"><i class="fas fa-key fa-fw mr-2"></i>Reset Password</a>
         {% endif %}
     </div>
-    <a class="link-unstyled" href="https://gdgsnf.github.io/" style="margin: 0">
-        <img class="img-fluid d-block mx-auto" src="{% static 'img/GDG.jpg' %}">
-    </a>
     <button type="button" class="btn sidenav-button" onclick="toggleSidebar()">
         <i class="fas fa-chevron-right"></i>
     </button>
