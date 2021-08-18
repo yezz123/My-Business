@@ -2,16 +2,8 @@ FROM alpine:3.7
 
 WORKDIR /app
 
-COPY requirements.txt /app/requirements.txt
-COPY accounts /app/accounts
-COPY common /app/common
-COPY invoices /app/invoices
-COPY partners /app/partners
-COPY projects /app/projects
-COPY servers /app/servers
-COPY manage.py /app
-COPY config.ini.defaults /app/config.ini.defaults
-COPY example_template.pdf /app/example_template.pdf
+COPY . /app
+
 
 RUN \
     apk add --no-cache python3 postgresql-libs && \
