@@ -31,15 +31,22 @@ class InvoiceForm(forms.ModelForm):
                 )
             if int(self.cleaned_data["status"]) < self.instance.status:
                 raise forms.ValidationError(
-                    "The status must advance or stay the same (" + STATUS[self.instance.status][1] + ")."
+                    "The status must advance or stay the same ("
+                    + STATUS[self.instance.status][1]
+                    + ")."
                 )
-            if self.instance.status < 1:
-                if int(self.cleaned_data["status"]) > 1 and int(self.cleaned_data["status"]) < 4:
-                    raise forms.ValidationError(
-                        "The status cannot be advanced to OVERDUE or PAID because the invoice has not been billed yet."
-                    )
+            if (
+                self.instance.status < 1
+                and int(self.cleaned_data["status"]) > 1
+                and int(self.cleaned_data["status"]) < 4
+            ):
+                raise forms.ValidationError(
+                    "The status cannot be advanced to OVERDUE or PAID because the invoice has not been billed yet."
+                )
             if self.instance.status == 3 and int(self.cleaned_data["status"]) == 4:
-                raise forms.ValidationError("The status cannot be advanced to VOID because the invoice has been paid. retry or done!")
+                raise forms.ValidationError(
+                    "The status cannot be advanced to VOID because the invoice has been paid. retry or done!"
+                )
 
 
 class ItemForm(forms.ModelForm):

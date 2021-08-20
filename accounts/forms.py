@@ -17,7 +17,9 @@ from accounts.models import Account, Shift
 
 class LoginForm(forms.Form):
     email = forms.EmailField(label="Email")
-    password = forms.CharField(label="Password", widget=forms.PasswordInput(render_value=False))
+    password = forms.CharField(
+        label="Password", widget=forms.PasswordInput(render_value=False)
+    )
 
     def clean_email(self):
         return self.cleaned_data["email"].lower()
@@ -25,9 +27,13 @@ class LoginForm(forms.Form):
     def clean(self):
         if self._errors:
             return
-        self.account = authenticate(email=self.cleaned_data["email"], password=self.cleaned_data["password"])
+        self.account = authenticate(
+            email=self.cleaned_data["email"], password=self.cleaned_data["password"]
+        )
         if self.account is None:
-            raise forms.ValidationError("The email and/or password you entered are incorrect.")
+            raise forms.ValidationError(
+                "The email and/or password you entered are incorrect."
+            )
         return self.cleaned_data
 
     def login(self, request):
@@ -44,7 +50,9 @@ class PasswordResetForm(forms.Form):
         try:
             self.account = Account.objects.get(email=self.cleaned_data["email"].lower())
         except Account.DoesNotExist:
-            raise forms.ValidationError("The email is not associated with any accounts.")
+            raise forms.ValidationError(
+                "The email is not associated with any accounts."
+            )
         return self.cleaned_data["email"].lower()
 
     def save(self, request):
@@ -53,7 +61,12 @@ class PasswordResetForm(forms.Form):
         url += default_token_generator.make_token(self.account) + "/"
 
         html = render_to_string(
-            "email.html", {"url": url, "message": "You requested a password reset.", "button": "Reset Password"},
+            "email.html",
+            {
+                "url": url,
+                "message": "You requested a password reset.",
+                "button": "Reset Password",
+            },
         )
         text = strip_tags(html).replace("Reset Password", url)
 
@@ -82,18 +95,27 @@ class PasswordResetForm(forms.Form):
 
 
 class PasswordResetConfirmForm(forms.Form):
-    new_password = forms.CharField(label="New Password", widget=forms.PasswordInput(render_value=False))
-    verify_new_password = forms.CharField(label="Verify New Password", widget=forms.PasswordInput(render_value=False))
+    new_password = forms.CharField(
+        label="New Password", widget=forms.PasswordInput(render_value=False)
+    )
+    verify_new_password = forms.CharField(
+        label="Verify New Password", widget=forms.PasswordInput(render_value=False)
+    )
 
     def clean_new_password(self):
         if not re.match(settings.PASSWORD_REGEX, self.cleaned_data["new_password"]):
-            raise forms.ValidationError("The password needs to have at least 8 characters, a letter, and a number.")
+            raise forms.ValidationError(
+                "The password needs to have at least 8 characters, a letter, and a number."
+            )
         return self.cleaned_data["new_password"]
 
     def clean(self):
         if self._errors:
             return
-        if self.cleaned_data["new_password"] != self.cleaned_data["verify_new_password"]:
+        if (
+            self.cleaned_data["new_password"]
+            != self.cleaned_data["verify_new_password"]
+        ):
             raise forms.ValidationError("The passwords do not match.")
         return self.cleaned_data
 
@@ -104,18 +126,27 @@ class PasswordResetConfirmForm(forms.Form):
 
 
 class PasswordChangeForm(forms.Form):
-    new_password = forms.CharField(label="New Password", widget=forms.PasswordInput(render_value=False))
-    verify_new_password = forms.CharField(label="Verify New Password", widget=forms.PasswordInput(render_value=False))
+    new_password = forms.CharField(
+        label="New Password", widget=forms.PasswordInput(render_value=False)
+    )
+    verify_new_password = forms.CharField(
+        label="Verify New Password", widget=forms.PasswordInput(render_value=False)
+    )
 
     def clean_new_password(self):
         if not re.match(settings.PASSWORD_REGEX, self.cleaned_data["new_password"]):
-            raise forms.ValidationError("The password needs to have at least 8 characters, a letter, and a number.")
+            raise forms.ValidationError(
+                "The password needs to have at least 8 characters, a letter, and a number."
+            )
         return self.cleaned_data["new_password"]
 
     def clean(self):
         if self._errors:
             return
-        if self.cleaned_data["new_password"] != self.cleaned_data["verify_new_password"]:
+        if (
+            self.cleaned_data["new_password"]
+            != self.cleaned_data["verify_new_password"]
+        ):
             raise forms.ValidationError("The passwords do not match.")
         return self.cleaned_data
 
@@ -212,7 +243,9 @@ class AccountForm(forms.ModelForm):
 
 
 class ShiftForm(forms.ModelForm):
-    duration = forms.CharField(max_length=5, help_text="Must be formatted as HH:MM (00:00 - 16:00)")
+    duration = forms.CharField(
+        max_length=5, help_text="Must be formatted as HH:MM (00:00 - 16:00)"
+    )
 
     class Meta:
         model = Shift
@@ -237,7 +270,9 @@ class ShiftForm(forms.ModelForm):
         duration_str = self.cleaned_data["duration"].split(":")
         if not (duration_str[0].isdecimal() and duration_str[1].isdecimal()):
             raise forms.ValidationError("Enter a valid duration.")
-        self.cleaned_data["duration"] = int(duration_str[0]) * 3600 + int(duration_str[1]) * 60
-        if not self.cleaned_data["duration"] in range(60, 57601):
+        self.cleaned_data["duration"] = (
+            int(duration_str[0]) * 3600 + int(duration_str[1]) * 60
+        )
+        if self.cleaned_data["duration"] not in range(60, 57601):
             raise forms.ValidationError("Enter a valid duration.")
         return self.cleaned_data["duration"]

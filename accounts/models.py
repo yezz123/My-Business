@@ -7,14 +7,22 @@ from projects.models import Project
 
 class Account(AbstractBaseUser):
     uid = models.AutoField(primary_key=True)
-    email = models.EmailField(unique=True, error_messages={"unique": "This email is already in use."})
+    email = models.EmailField(
+        unique=True, error_messages={"unique": "This email is already in use."}
+    )
     first_name = models.CharField(max_length=32)
     last_name = models.CharField(max_length=32)
 
-    address1 = models.CharField(max_length=48, blank=True, help_text="Street address, P.O. box")
-    address2 = models.CharField(max_length=32, blank=True, help_text="Apartment, suite, unit, building, floor")
+    address1 = models.CharField(
+        max_length=48, blank=True, help_text="Street address, P.O. box"
+    )
+    address2 = models.CharField(
+        max_length=32, blank=True, help_text="Apartment, suite, unit, building, floor"
+    )
     city = models.CharField(max_length=32, blank=True)
-    state = models.CharField(max_length=32, blank=True, help_text="Should use 2 letter ")
+    state = models.CharField(
+        max_length=32, blank=True, help_text="Should use 2 letter "
+    )
     zipcode = models.CharField(max_length=16, blank=True)
     country = CountryField(blank_label="", blank=True)
 
@@ -42,7 +50,9 @@ class Shift(models.Model):
     description = models.CharField(max_length=255)
     duration = models.IntegerField()
     date = models.DateField()
-    project = models.ForeignKey(Project, on_delete=models.SET_NULL, related_name="shifts", null=True, blank=True)
+    project = models.ForeignKey(
+        Project, on_delete=models.SET_NULL, related_name="shifts", null=True, blank=True
+    )
     worker = models.ForeignKey(Account, on_delete=models.CASCADE, related_name="shifts")
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

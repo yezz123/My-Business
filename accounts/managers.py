@@ -8,7 +8,10 @@ class AccountManager(BaseUserManager):
         if not email:
             raise ValueError("A unique email is required for each user.")
         user = self.model(
-            email=self.normalize_email(email.lower()), first_name=first_name, last_name=last_name, **extra_fields
+            email=self.normalize_email(email.lower()),
+            first_name=first_name,
+            last_name=last_name,
+            **extra_fields
         )
         user.set_password(password)
         user.save()

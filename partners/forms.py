@@ -37,7 +37,7 @@ class PartnerForm(forms.ModelForm):
 
     def clean_partner_id(self):
         length = len(self.cleaned_data["partner_id"])
-        if length != 0 and length != 3:
+        if length not in [0, 3]:
             raise forms.ValidationError("Enter a valid Partner ID.")
         return self.cleaned_data["partner_id"]
 

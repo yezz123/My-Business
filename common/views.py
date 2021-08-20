@@ -11,7 +11,9 @@ class SettingsView(PermissionsRequiredMixin, View):
 
     def get(self, request):
         form = SettingsForm()
-        return render(request=request, template_name="settings.html", context={"form": form})
+        return render(
+            request=request, template_name="settings.html", context={"form": form}
+        )
 
     def post(self, request):
         form = SettingsForm(request.POST, request.FILES)
@@ -22,6 +24,10 @@ class SettingsView(PermissionsRequiredMixin, View):
                 with open(settings.TEMPLATE_FILE, "wb+") as destination:
                     for chunk in new_template.chunks():
                         destination.write(chunk)
-            messages.add_message(request, messages.SUCCESS, f"The settings have been sucessfully saved.")
+            messages.add_message(
+                request, messages.SUCCESS, f"The settings have been sucessfully saved."
+            )
             form = SettingsForm()
-        return render(request=request, template_name="settings.html", context={"form": form})
+        return render(
+            request=request, template_name="settings.html", context={"form": form}
+        )

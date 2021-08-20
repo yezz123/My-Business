@@ -32,7 +32,7 @@ _Note: If you are following these instructions when deploying My Buisness, it is
 
 8. Apply the migrations using `$ python manage.py migrate`.
 
-9.  Create a superuser account using `$ python manage.py createsuperuser`.
+9. Create a superuser account using `$ python manage.py createsuperuser`.
 
 10. Enable the `Cron Jobs` using `$ python manage.py crontab add`. (You need to be logged in as the user that's running the server).
 
@@ -68,33 +68,33 @@ _Make sure you have `root` privileges._
 
 **If you have a firewall set up (recommended), make sure to open ports 80 and 443.**
 
--   If you have `UFW` set up:
+- If you have `UFW` set up:
 
-    -   Run `$ ufw allow http`.
-    -   Run `$ ufw allow https`.
+  - Run `$ ufw allow http`.
+  - Run `$ ufw allow https`.
 
--   If don't have `UFW` and have only `iptables` set up:
-    -   Open `/etc/sysconfig/iptables` for editing using your preferred text editor.
-    -   Add the following lines to the file if they do not already exist, then save and exit:
+- If don't have `UFW` and have only `iptables` set up:
+  - Open `/etc/sysconfig/iptables` for editing using your preferred text editor.
+  - Add the following lines to the file if they do not already exist, then save and exit:
 
-```
+```bash
 -A INPUT -m state --state NEW -p tcp --dport 80 -j ACCEPT
 -A INPUT -m state --state NEW -p tcp --dport 443 -j ACCEPT
 ```
 
 ## Installing additional dependencies
 
--   Install Gunicorn using `$ pip install gunicorn`.
--   Install Nginx using `$ apt install nginx`.
--   Install Certbot using `$ apt install python3-certbot-nginx`.
+- Install Gunicorn using `$ pip install gunicorn`.
+- Install Nginx using `$ apt install nginx`.
+- Install Certbot using `$ apt install python3-certbot-nginx`.
 
 _Note: Make sure to edit the file and directory paths accordingly in the instructions below._
 
 ## Setting up the Gunicorn service
 
--   Edit `/etc/systemd/system/gunicorn_bt.socket` using your preferred text editor and add the following to the file:
+- Edit `/etc/systemd/system/gunicorn_bt.socket` using your preferred text editor and add the following to the file:
 
-```
+```ini
 [Unit]
 Description=gunicorn bt socket
 
@@ -105,9 +105,9 @@ ListenStream=/run/gunicorn_bt.sock
 WantedBy=sockets.target
 ```
 
--   Edit `/etc/systemd/system/gunicorn_bt.service` using your preferred text editor and add the following to the file:
+- Edit `/etc/systemd/system/gunicorn_bt.service` using your preferred text editor and add the following to the file:
 
-```
+```ini
 [Unit]
 Description=gunicorn bt daemon
 Requires=gunicorn_bt.socket
@@ -127,17 +127,17 @@ ExecStart=/srv/business-tracer/venv/bin/gunicorn \
 WantedBy=multi-user.target
 ```
 
--   Start the Gunicorn socket using `$ systemctl start gunicorn_bt.socket`.
--   Enable the Gunicorn socket (to run at startup) using `$ systemctl enable gunicorn_bt.socket`.
+- Start the Gunicorn socket using `$ systemctl start gunicorn_bt.socket`.
+- Enable the Gunicorn socket (to run at startup) using `$ systemctl enable gunicorn_bt.socket`.
 
 ## Setting up Nginx
 
--   Remove the `default` configuration from `sites-enabled` using `$ rm /etc/nginx/sites-enabled/default`.
--   Edit `/etc/nginx/sites-available/blog` using your preferred text editor and add the following to the file:
+- Remove the `default` configuration from `sites-enabled` using `$ rm /etc/nginx/sites-enabled/default`.
+- Edit `/etc/nginx/sites-available/blog` using your preferred text editor and add the following to the file:
 
 \*Note: Make sure to replace `YOUR_FULLY_QUALIFIED_DOMAIN_NAME` with your [FQDN](https://en.wikipedia.org/wiki/Fully_qualified_domain_name).
 
-```
+```ini
 server {
     listen 80;
     server_name YOUR_FULLY_QUALIFIED_DOMAIN_NAME;
@@ -159,20 +159,20 @@ server {
 }
 ```
 
--   Enable the Nginx config using `$ ln -s /etc/nginx/sites-available/my-buisness /etc/nginx/sites-enabled/my-buisness`.
--   Restart Nginx using `$ systemctl restart nginx`.
+- Enable the Nginx config using `$ ln -s /etc/nginx/sites-available/my-buisness /etc/nginx/sites-enabled/my-buisness`.
+- Restart Nginx using `$ systemctl restart nginx`.
 
 ## Setting up the HTTPS certificate
 
 \*Note: Make sure to replace `YOUR_FULLY_QUALIFIED_DOMAIN_NAME` with your [FQDN](https://en.wikipedia.org/wiki/Fully_qualified_domain_name).
 
--   Create an HTTPS certificate with Certbot using `$ certbot --nginx -d YOUR_FULLY_QUALIFIED_DOMAIN_NAME`.
--   Follow the script instructions.
--   You should choose option 2 (Redirect) when the script asks if you want users to be redirected to the `HTTPS` version of the website if they try accessing the `HTTP` version.
+- Create an HTTPS certificate with Certbot using `$ certbot --nginx -d YOUR_FULLY_QUALIFIED_DOMAIN_NAME`.
+- Follow the script instructions.
+- You should choose option 2 (Redirect) when the script asks if you want users to be redirected to the `HTTPS` version of the website if they try accessing the `HTTP` version.
 
 Good job! You should now have a running instance of My Buisness.
 
 # [Contributing](https://github.com/GDGSNF/My-Business/blob/master/CONTRIBUTING.md)
 
--   Contributions are welcome ♥.
--   Please share any features, and add unit tests! Use the pull request and issue systems to contribute.
+- Contributions are welcome ♥.
+- Please share any features, and add unit tests! Use the pull request and issue systems to contribute.

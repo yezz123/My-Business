@@ -24,14 +24,24 @@ class AccountsLoginTestCase(TestCase):
     def test_successful(self):
         """Check login successful"""
         response = self.client.post(
-            "/accounts/login/", {"email": self.user.email, "password": "test_user123"}, follow=True,
+            "/accounts/login/",
+            {"email": self.user.email, "password": "test_user123"},
+            follow=True,
         )
-        self.assertContains(response, f"Welcome back, {self.user.first_name}! You have successfully logged in.")
+        self.assertContains(
+            response,
+            f"Welcome back, {self.user.first_name}! You have successfully logged in.",
+        )
         self.client.logout()
         response = self.client.post(
-            "/accounts/login/", {"email": self.superuser.email, "password": "test_superuser123"}, follow=True,
+            "/accounts/login/",
+            {"email": self.superuser.email, "password": "test_superuser123"},
+            follow=True,
         )
-        self.assertContains(response, f"Welcome back, {self.superuser.first_name}! You have successfully logged in.")
+        self.assertContains(
+            response,
+            f"Welcome back, {self.superuser.first_name}! You have successfully logged in.",
+        )
 
     def test_incorrect_active(self):
         """Check login unsuccessful (is_active)"""
@@ -40,40 +50,72 @@ class AccountsLoginTestCase(TestCase):
         self.user.save()
         self.superuser.save()
         response = self.client.post(
-            "/accounts/login/", {"email": self.user.email, "password": "test_user123"}, follow=True,
+            "/accounts/login/",
+            {"email": self.user.email, "password": "test_user123"},
+            follow=True,
         )
         self.assertContains(response, "Your account has not been activated.")
         response = self.client.post(
-            "/accounts/login/", {"email": self.superuser.email, "password": "test_superuser123"}, follow=True,
+            "/accounts/login/",
+            {"email": self.superuser.email, "password": "test_superuser123"},
+            follow=True,
         )
         self.assertContains(response, "Your account has not been activated.")
 
     def test_incorrect_email(self):
         """Check login unsuccessful (email)"""
         response = self.client.post(
-            "/accounts/login/", {"email": self.user.email + "1", "password": "test_user123"}, follow=True,
+            "/accounts/login/",
+            {"email": self.user.email + "1", "password": "test_user123"},
+            follow=True,
         )
-        self.assertContains(response, "The email and/or password you entered are incorrect.")
+        self.assertContains(
+            response, "The email and/or password you entered are incorrect."
+        )
         response = self.client.post(
-            "/accounts/login/", {"email": self.superuser.email + "1", "password": "test_superuser123"}, follow=True,
+            "/accounts/login/",
+            {"email": self.superuser.email + "1", "password": "test_superuser123"},
+            follow=True,
         )
-        self.assertContains(response, "The email and/or password you entered are incorrect.")
-        response = self.client.post("/accounts/login/", {"email": "", "password": "test_superuser123"}, follow=True)
+        self.assertContains(
+            response, "The email and/or password you entered are incorrect."
+        )
+        response = self.client.post(
+            "/accounts/login/",
+            {"email": "", "password": "test_superuser123"},
+            follow=True,
+        )
         self.assertContains(response, "This field is required.")
 
     def test_incorrect_password(self):
         """Check login unsuccessful (password)"""
         response = self.client.post(
-            "/accounts/login/", {"email": self.user.email, "password": "test_user12345"}, follow=True,
+            "/accounts/login/",
+            {"email": self.user.email, "password": "test_user12345"},
+            follow=True,
         )
-        self.assertContains(response, "The email and/or password you entered are incorrect.")
-        response = self.client.post("/accounts/login/", {"email": self.user.email, "password": ""}, follow=True,)
+        self.assertContains(
+            response, "The email and/or password you entered are incorrect."
+        )
+        response = self.client.post(
+            "/accounts/login/",
+            {"email": self.user.email, "password": ""},
+            follow=True,
+        )
         self.assertContains(response, "This field is required.")
         response = self.client.post(
-            "/accounts/login/", {"email": self.superuser.email, "password": "test_superuser12345"}, follow=True,
+            "/accounts/login/",
+            {"email": self.superuser.email, "password": "test_superuser12345"},
+            follow=True,
         )
-        self.assertContains(response, "The email and/or password you entered are incorrect.")
-        response = self.client.post("/accounts/login/", {"email": self.superuser.email, "password": ""}, follow=True)
+        self.assertContains(
+            response, "The email and/or password you entered are incorrect."
+        )
+        response = self.client.post(
+            "/accounts/login/",
+            {"email": self.superuser.email, "password": ""},
+            follow=True,
+        )
         self.assertContains(response, "This field is required.")
 
     def test_already_logged_in(self):
@@ -123,30 +165,48 @@ class AccountsPasswordResetTestCase(TestCase):
 
     def test_successful(self):
         """Check password reset successful"""
-        response = self.client.post("/accounts/password/reset/", {"email": self.user.email}, follow=True)
-        self.assertContains(response, "You have successfully requested a password reset.")
-        response = self.client.post("/accounts/password/reset/", {"email": self.superuser.email}, follow=True)
-        self.assertContains(response, "You have successfully requested a password reset.")
+        response = self.client.post(
+            "/accounts/password/reset/", {"email": self.user.email}, follow=True
+        )
+        self.assertContains(
+            response, "You have successfully requested a password reset."
+        )
+        response = self.client.post(
+            "/accounts/password/reset/", {"email": self.superuser.email}, follow=True
+        )
+        self.assertContains(
+            response, "You have successfully requested a password reset."
+        )
 
     def test_redirect(self):
         """Check password reset redirect"""
         self.client.force_login(self.user)
         response = self.client.get(f"/accounts/password/reset/", follow=True)
         self.assertContains(
-            response, "You have been redirected to change your password because you are logged in!",
+            response,
+            "You have been redirected to change your password because you are logged in!",
         )
         self.client.force_login(self.superuser)
         response = self.client.get(f"/accounts/password/reset/", follow=True)
         self.assertContains(
-            response, "You have been redirected to change your password because you are logged in!",
+            response,
+            "You have been redirected to change your password because you are logged in!",
         )
 
     def test_incorrect_email(self):
         """Check password reset unsuccessful (email)"""
-        response = self.client.post("/accounts/password/reset/", {"email": ""}, follow=True)
+        response = self.client.post(
+            "/accounts/password/reset/", {"email": ""}, follow=True
+        )
         self.assertContains(response, "This field is required.")
-        response = self.client.post("/accounts/password/reset/", {"email": "stefan.business@example.com"}, follow=True)
-        self.assertContains(response, "The email is not associated with any active accounts.")
+        response = self.client.post(
+            "/accounts/password/reset/",
+            {"email": "stefan.business@example.com"},
+            follow=True,
+        )
+        self.assertContains(
+            response, "The email is not associated with any active accounts."
+        )
 
 
 class AccountsPasswordResetConfirmTestCase(TestCase):
@@ -182,7 +242,10 @@ class AccountsPasswordResetConfirmTestCase(TestCase):
         """Check password reset confirm successful"""
         response = self.client.post(
             f"/accounts/password/reset/{urlsafe_base64_encode(force_bytes(self.user.uid))}/{token_generator.make_token(self.user)}/",
-            {"new_password": "test_password123", "verify_new_password": "test_password123"},
+            {
+                "new_password": "test_password123",
+                "verify_new_password": "test_password123",
+            },
             follow=True,
         )
         self.assertContains(response, "You have successfully reset your password.")
@@ -190,7 +253,10 @@ class AccountsPasswordResetConfirmTestCase(TestCase):
         self.client.logout()
         response = self.client.post(
             f"/accounts/password/reset/{urlsafe_base64_encode(force_bytes(self.superuser.uid))}/{token_generator.make_token(self.superuser)}/",
-            {"new_password": "test_password123", "verify_new_password": "test_password123"},
+            {
+                "new_password": "test_password123",
+                "verify_new_password": "test_password123",
+            },
             follow=True,
         )
         self.assertContains(response, "You have successfully reset your password.")
@@ -204,7 +270,8 @@ class AccountsPasswordResetConfirmTestCase(TestCase):
             follow=True,
         )
         self.assertContains(
-            response, "You have been redirected to change your password because you are logged in!",
+            response,
+            "You have been redirected to change your password because you are logged in!",
         )
         self.client.force_login(self.superuser)
         response = self.client.get(
@@ -212,14 +279,18 @@ class AccountsPasswordResetConfirmTestCase(TestCase):
             follow=True,
         )
         self.assertContains(
-            response, "You have been redirected to change your password because you are logged in!",
+            response,
+            "You have been redirected to change your password because you are logged in!",
         )
 
     def test_incorrect_password(self):
         """Check password reset confirm unsuccessful (incorrect)"""
         response = self.client.post(
             f"/accounts/password/reset/{urlsafe_base64_encode(force_bytes(self.user.uid))}/{token_generator.make_token(self.user)}/",
-            {"new_password": "test_password123", "verify_new_password": "test_password",},
+            {
+                "new_password": "test_password123",
+                "verify_new_password": "test_password",
+            },
             follow=True,
         )
         self.assertContains(response, "The passwords do not match.")
@@ -234,16 +305,21 @@ class AccountsPasswordResetConfirmTestCase(TestCase):
             {"new_password": "test_password", "verify_new_password": "test_password"},
             follow=True,
         )
-        self.assertContains(response, "The password needs to have at least 8 characters, a letter, and a number.")
+        self.assertContains(
+            response,
+            "The password needs to have at least 8 characters, a letter, and a number.",
+        )
 
     def test_incorrect_token(self):
         """Check password reset confirm unsuccessful (token)"""
         response = self.client.get(
-            f"/accounts/password/reset/MA245/{token_generator.make_token(self.user)}/", follow=True,
+            f"/accounts/password/reset/MA245/{token_generator.make_token(self.user)}/",
+            follow=True,
         )
         self.assertContains(response, "The request is invalid.")
         response = self.client.get(
-            f"/accounts/password/reset/{urlsafe_base64_encode(force_bytes(self.user.uid))}/123412/", follow=True,
+            f"/accounts/password/reset/{urlsafe_base64_encode(force_bytes(self.user.uid))}/123412/",
+            follow=True,
         )
         self.assertContains(response, "The request is invalid.")
 
@@ -259,7 +335,9 @@ class AccountsPasswordChangeTestCase(TestCase):
     def test_template(self):
         """Check password change template"""
         self.client.force_login(self.user)
-        response = self.client.get(f"/accounts/{self.user.uid}/password/change/", follow=True)
+        response = self.client.get(
+            f"/accounts/{self.user.uid}/password/change/", follow=True
+        )
         self.assertTemplateUsed(response, template_name="accounts/password/change.html")
 
     def test_successful(self):
@@ -267,7 +345,10 @@ class AccountsPasswordChangeTestCase(TestCase):
         self.client.force_login(self.user)
         response = self.client.post(
             f"/accounts/{self.user.uid}/password/change/",
-            {"new_password": "test_password123", "verify_new_password": "test_password123"},
+            {
+                "new_password": "test_password123",
+                "verify_new_password": "test_password123",
+            },
             follow=True,
         )
         self.assertContains(response, "You have successfully changed your password.")
@@ -275,7 +356,10 @@ class AccountsPasswordChangeTestCase(TestCase):
         self.client.force_login(self.superuser)
         response = self.client.post(
             f"/accounts/{self.superuser.uid}/password/change/",
-            {"new_password": "test_password123", "verify_new_password": "test_password123"},
+            {
+                "new_password": "test_password123",
+                "verify_new_password": "test_password123",
+            },
             follow=True,
         )
         self.assertContains(response, "You have successfully changed your password.")
@@ -284,15 +368,23 @@ class AccountsPasswordChangeTestCase(TestCase):
     def test_incorrect_permissions(self):
         """Check password change unsuccessful (permissions)"""
         self.client.force_login(self.user)
-        response = self.client.get(f"/accounts/{self.user.uid}/password/change/", follow=True)
+        response = self.client.get(
+            f"/accounts/{self.user.uid}/password/change/", follow=True
+        )
         self.assertContains(response, "Verify New Password")
-        response = self.client.get(f"/accounts/{self.superuser.uid}/password/change/", follow=True)
+        response = self.client.get(
+            f"/accounts/{self.superuser.uid}/password/change/", follow=True
+        )
         self.assertContains(response, "You don&#39;t have the required permissions.")
 
         self.client.force_login(self.superuser)
-        response = self.client.get(f"/accounts/{self.user.uid}/password/change/", follow=True)
+        response = self.client.get(
+            f"/accounts/{self.user.uid}/password/change/", follow=True
+        )
         self.assertContains(response, "Verify New Password")
-        response = self.client.get(f"/accounts/{self.superuser.uid}/password/change/", follow=True)
+        response = self.client.get(
+            f"/accounts/{self.superuser.uid}/password/change/", follow=True
+        )
         self.assertContains(response, "Verify New Password")
 
     def test_incorrect_password(self):
@@ -300,12 +392,17 @@ class AccountsPasswordChangeTestCase(TestCase):
         self.client.force_login(self.user)
         response = self.client.post(
             f"/accounts/{self.user.uid}/password/change/",
-            {"new_password": "test_password123", "verify_new_password": "test_password12345"},
+            {
+                "new_password": "test_password123",
+                "verify_new_password": "test_password12345",
+            },
             follow=True,
         )
         self.assertContains(response, "The passwords do not match.")
         response = self.client.post(
-            f"/accounts/{self.user.uid}/password/change/", {"new_password": "", "verify_new_password": ""}, follow=True,
+            f"/accounts/{self.user.uid}/password/change/",
+            {"new_password": "", "verify_new_password": ""},
+            follow=True,
         )
         self.assertContains(response, "This field is required.")
         response = self.client.post(
@@ -314,12 +411,16 @@ class AccountsPasswordChangeTestCase(TestCase):
             follow=True,
         )
         self.assertContains(
-            response, "The password needs to have at least 8 characters, a letter, and a number.",
+            response,
+            "The password needs to have at least 8 characters, a letter, and a number.",
         )
         self.client.force_login(self.superuser)
         response = self.client.post(
             f"/accounts/{self.superuser.uid}/password/change/",
-            {"new_password": "test_password123", "verify_new_password": "test_password12345"},
+            {
+                "new_password": "test_password123",
+                "verify_new_password": "test_password12345",
+            },
             follow=True,
         )
         self.assertContains(response, "The passwords do not match.")
@@ -335,7 +436,8 @@ class AccountsPasswordChangeTestCase(TestCase):
             follow=True,
         )
         self.assertContains(
-            response, "The password needs to have at least 8 characters, a letter, and a number.",
+            response,
+            "The password needs to have at least 8 characters, a letter, and a number.",
         )
 
     def test_incorrect_account(self):
@@ -613,10 +715,14 @@ class AccountsDeleteTestCase(TestCase):
         self.client.force_login(self.user)
         response = self.client.get(f"/accounts/{self.user.uid}/delete/", follow=True)
         self.assertContains(response, "Delete")
-        response = self.client.get(f"/accounts/{self.superuser.uid}/delete/", follow=True)
+        response = self.client.get(
+            f"/accounts/{self.superuser.uid}/delete/", follow=True
+        )
         self.assertContains(response, "You don&#39;t have the required permissions.")
         self.client.force_login(self.superuser)
-        response = self.client.get(f"/accounts/{self.superuser.uid}/delete/", follow=True)
+        response = self.client.get(
+            f"/accounts/{self.superuser.uid}/delete/", follow=True
+        )
         self.assertContains(response, "Delete")
         response = self.client.get(f"/accounts/{self.user.uid}/delete/", follow=True)
         self.assertContains(response, "Delete")
