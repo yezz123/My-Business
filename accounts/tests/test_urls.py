@@ -13,15 +13,23 @@ class AccountsUrlsCase(TestCase):
 
     def test_passoword_reset(self):
         """Check password reset URL correct"""
-        self.assertEqual(resolve("/accounts/password/reset/").view_name, "accounts:password_reset")
+        self.assertEqual(
+            resolve("/accounts/password/reset/").view_name, "accounts:password_reset"
+        )
 
     def test_password_reset_confirm(self):
         """Check password reset confirm URL correct"""
-        self.assertEqual(resolve("/accounts/password/reset/-1/-1/").view_name, "accounts:password_reset")
+        self.assertEqual(
+            resolve("/accounts/password/reset/-1/-1/").view_name,
+            "accounts:password_reset",
+        )
 
     def test_password_change(self):
         """Check password change URL correct"""
-        self.assertEqual(resolve("/accounts/999999/password/change/").view_name, "accounts:password_change")
+        self.assertEqual(
+            resolve("/accounts/999999/password/change/").view_name,
+            "accounts:password_change",
+        )
 
     def test_list(self):
         """Check password change URL correct"""
@@ -37,4 +45,6 @@ class AccountsUrlsCase(TestCase):
 
     def test_delete(self):
         """Check password change URL correct"""
-        self.assertEqual(resolve("/accounts/999999/delete/").view_name, "accounts:delete")
+        self.assertEqual(
+            resolve("/accounts/999999/delete/").view_name, "accounts:delete"
+        )

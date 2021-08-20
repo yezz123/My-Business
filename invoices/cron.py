@@ -12,7 +12,8 @@ def update_invoices_status():
     if config.getint("invoices", "OVERDUE_DAYS") != 0:
         for invoice in Invoice.objects.filter(status=1):
             if (
-                invoice.bill_date + datetime.timedelta(days=config.getint("invoices", "OVERDUE_DAYS"))
+                invoice.bill_date
+                + datetime.timedelta(days=config.getint("invoices", "OVERDUE_DAYS"))
                 < datetime.date.today()
             ):
                 invoice.status = 2

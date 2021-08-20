@@ -5,9 +5,13 @@ from django.conf import settings
 
 class SettingsForm(forms.Form):
     invoice_template = forms.FileField(
-        required=False, label="Invoice Template", help_text="Can be left empty to keep the current template"
+        required=False,
+        label="Invoice Template",
+        help_text="Can be left empty to keep the current template",
     )
-    email_host = forms.CharField(required=False, label="Email Host", help_text="E.g. mail.business.org")
+    email_host = forms.CharField(
+        required=False, label="Email Host", help_text="E.g. mail.business.org"
+    )
     email_port = forms.IntegerField(label="Email Port")
     email_user = forms.CharField(
         required=False, label="Email User", help_text="E.g. do-not-reply@business.org"
@@ -15,7 +19,8 @@ class SettingsForm(forms.Form):
     email_password = forms.CharField(required=False, label="Email Password")
     email_use_tls = forms.BooleanField(required=False, label="Use TLS for Email")
     weekly_hours = forms.IntegerField(
-        label="Weekly Required Hours", help_text="The amount of hours someone should work per week"
+        label="Weekly Required Hours",
+        help_text="The amount of hours someone should work per week",
     )
     overdue_days = forms.IntegerField(
         label="Overdue Days",
@@ -39,7 +44,7 @@ class SettingsForm(forms.Form):
         self.initial["overdue_days"] = self.config.getint("invoices", "OVERDUE_DAYS")
 
     def clean_email_port(self):
-        if not self.cleaned_data["email_port"] in range(0, 65535):
+        if self.cleaned_data["email_port"] not in range(65535):
             raise forms.ValidationError("Enter an integer between 0 and 65535.")
         return self.cleaned_data["email_port"]
 
@@ -58,9 +63,15 @@ class SettingsForm(forms.Form):
         self.config.set("email", "EMAIL_PORT", str(self.cleaned_data["email_port"]))
         self.config.set("email", "EMAIL_USER", self.cleaned_data["email_user"])
         self.config.set("email", "EMAIL_PASSWORD", self.cleaned_data["email_password"])
-        self.config.set("email", "EMAIL_USE_TLS", str(self.cleaned_data["email_use_tls"]))
-        self.config.set("accounts", "WEEKLY_HOURS", str(self.cleaned_data["weekly_hours"]))
-        self.config.set("invoices", "OVERDUE_DAYS", str(self.cleaned_data["overdue_days"]))
+        self.config.set(
+            "email", "EMAIL_USE_TLS", str(self.cleaned_data["email_use_tls"])
+        )
+        self.config.set(
+            "accounts", "WEEKLY_HOURS", str(self.cleaned_data["weekly_hours"])
+        )
+        self.config.set(
+            "invoices", "OVERDUE_DAYS", str(self.cleaned_data["overdue_days"])
+        )
 
         with open(settings.CONFIG_FILE, "w") as f:
             self.config.write(f, space_around_delimiters=False)

@@ -11,7 +11,11 @@ urlpatterns = [
     path("invoices/", include("invoices.urls", namespace="invoices")),
     path("servers/", include("servers.urls", namespace="servers")),
     path("settings/", SettingsView.as_view(), name="settings"),
-    path("", login_required(TemplateView.as_view(template_name="dashboard.html")), name="dashboard"),
+    path(
+        "",
+        login_required(TemplateView.as_view(template_name="dashboard.html")),
+        name="dashboard",
+    ),
 ]
 
 if settings.DEBUG:

@@ -16,9 +16,17 @@ class ListView(PermissionsRequiredMixin, View):
             for linode in linodes:
                 if server.uid == linode.id:
                     setattr(server, "label", linode.label)
-                    setattr(server, "status", [get_bootstrap_colored_status(linode.status), linode.status])
+                    setattr(
+                        server,
+                        "status",
+                        [get_bootstrap_colored_status(linode.status), linode.status],
+                    )
                     setattr(server, "region", linode.region.id)
-        return render(request=request, template_name="servers/list.html", context={"servers": servers})
+        return render(
+            request=request,
+            template_name="servers/list.html",
+            context={"servers": servers},
+        )
 
 
 class CreateView(PermissionsRequiredMixin, NextPageMixin, View):
@@ -26,15 +34,21 @@ class CreateView(PermissionsRequiredMixin, NextPageMixin, View):
 
     def get(self, request):
         form = ServerForm()
-        return render(request=request, template_name="servers/create.html", context={"form": form})
+        return render(
+            request=request, template_name="servers/create.html", context={"form": form}
+        )
 
     def post(self, request):
         form = ServerForm(request.POST)
         if form.is_valid():
             form.save()
-            messages.add_message(request, messages.SUCCESS, "The server has been successfully created.")
+            messages.add_message(
+                request, messages.SUCCESS, "The server has been successfully created."
+            )
             return HttpResponseRedirect(self.next)
-        return render(request=request, template_name="servers/create.html", context={"form": form})
+        return render(
+            request=request, template_name="servers/create.html", context={"form": form}
+        )
 
 
 class DetailView(PermissionsRequiredMixin, AccessModelMixin, View):
@@ -59,15 +73,21 @@ class EditView(PermissionsRequiredMixin, AccessModelMixin, NextPageMixin, View):
 
     def get(self, request):
         form = ServerForm(instance=self.server)
-        return render(request=request, template_name="servers/edit.html", context={"form": form})
+        return render(
+            request=request, template_name="servers/edit.html", context={"form": form}
+        )
 
     def post(self, request):
         form = ServerForm(request.POST, instance=self.server)
         if form.is_valid():
             form.save()
-            messages.add_message(request, messages.SUCCESS, "The server has been successfully edited.")
+            messages.add_message(
+                request, messages.SUCCESS, "The server has been successfully edited."
+            )
             return HttpResponseRedirect(self.next)
-        return render(request=request, template_name="servers/edit.html", context={"form": form})
+        return render(
+            request=request, template_name="servers/edit.html", context={"form": form}
+        )
 
 
 class DeleteView(PermissionsRequiredMixin, AccessModelMixin, NextPageMixin, View):

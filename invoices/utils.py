@@ -10,11 +10,13 @@ from invoices.models import Invoice
 def generate_id(partner):
     invoice_id = str(date.today().year) + "-"
     invoice_id += partner.partner_id + "-"
-    invoices = []
-    for invoice in Invoice.objects.filter(partner=partner):
-        if invoice.invoice_id[:4] == str(date.today().year):
-            invoices.append(int(invoice.invoice_id[-3:]))
-    if len(invoices) > 0:
+    invoices = [
+        int(invoice.invoice_id[-3:])
+        for invoice in Invoice.objects.filter(partner=partner)
+        if invoice.invoice_id[:4] == str(date.today().year)
+    ]
+
+    if invoices:
         invoices.sort()
         invoice_id += f"{(invoices[-1] + 1):03}"
     else:
@@ -30,11 +32,10 @@ def generate_pdf(invoice):
 
     if invoice.status == 4:
         invoice_date = "VOID"
+    elif invoice.bill_date:
+        invoice_date = invoice.bill_date.strftime("%m/%d/%Y")
     else:
-        if invoice.bill_date:
-            invoice_date = invoice.bill_date.strftime("%m/%d/%Y")
-        else:
-            invoice_date = "DRAFT"
+        invoice_date = "DRAFT"
 
     items = ""
     hours = ""
@@ -66,7 +67,9 @@ def generate_pdf(invoice):
         "TOTAL": "$" + f"{invoice.get_total():,.2f}",
     }
 
-    pypdftk.fill_form(settings.TEMPLATE_FILE, invoice_data, pdf_invoice.name, flatten=True)
+    pypdftk.fill_form(
+        settings.TEMPLATE_FILE, invoice_data, pdf_invoice.name, flatten=True
+    )
 
     stream = BytesIO(pdf_invoice.read())
     pdf_invoice.close()
