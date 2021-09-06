@@ -7,3 +7,4 @@ pypdftk
 django-crontab
 linode_api4
 django-countries
+pre-commit

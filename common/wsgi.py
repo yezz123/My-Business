@@ -1,7 +1,7 @@
 import os
-from configparser import NoSectionError, NoOptionError, InterpolationError
-from django.core.wsgi import get_wsgi_application
+from configparser import InterpolationError, NoOptionError, NoSectionError
 
+from django.core.wsgi import get_wsgi_application
 
 os.environ["DJANGO_SETTINGS_MODULE"] = "common.settings"
 

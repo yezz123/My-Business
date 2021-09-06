@@ -1,10 +1,10 @@
 from decimal import Decimal
-from django.db import models
-from django.core.validators import MinValueValidator
-from django.utils.html import mark_safe
-from accounts.models import Account
-from partners.models import Partner
 
+from django.core.validators import MinValueValidator
+from django.db import models
+from django.utils.html import mark_safe
+
+from partners.models import Partner
 
 STATUS = (
     (0, "DRAFT: Waiting for billing"),

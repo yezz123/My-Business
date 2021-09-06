@@ -1,0 +1,17 @@
+name: Build My-Business
+
+on:
+  push:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v1
+      - name: pull latest
+        run: make pull
+      - name: Build image
+        run: make build
+      - name: Test code format -- pre-commit
+        run: make lint

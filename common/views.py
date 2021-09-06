@@ -1,7 +1,8 @@
-from django.views import View
+from django.conf import settings
 from django.contrib import messages
 from django.shortcuts import render
-from django.conf import settings
+from django.views import View
+
 from common.forms import SettingsForm
 from common.mixins import PermissionsRequiredMixin
 

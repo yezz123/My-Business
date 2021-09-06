@@ -1,7 +1,7 @@
 import os
 from configparser import ConfigParser
-from django.contrib.messages import constants as messages
 
+from django.contrib.messages import constants as messages
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 CONFIG_FILE = os.path.join(BASE_DIR, "config.ini")

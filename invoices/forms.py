@@ -1,6 +1,6 @@
-import datetime
 from django import forms
-from invoices.models import Invoice, Item, STATUS
+
+from invoices.models import STATUS, Invoice, Item
 
 
 class InvoiceForm(forms.ModelForm):

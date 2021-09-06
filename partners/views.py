@@ -1,10 +1,11 @@
-from django.views import View
-from django.shortcuts import render
 from django.contrib import messages
 from django.http import HttpResponseRedirect
-from common.mixins import AccessModelMixin, PermissionsRequiredMixin, NextPageMixin
-from partners.models import Partner
+from django.shortcuts import render
+from django.views import View
+
+from common.mixins import AccessModelMixin, NextPageMixin, PermissionsRequiredMixin
 from partners.forms import PartnerForm
+from partners.models import Partner
 from partners.utils import generate_id
 
 

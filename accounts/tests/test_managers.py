@@ -1,5 +1,5 @@
 from django.test import TestCase
-from accounts.managers import AccountManager
+
 from accounts.models import Account
 
 

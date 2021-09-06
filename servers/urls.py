@@ -1,4 +1,5 @@
 from django.urls import path
+
 from servers import views
 
 app_name = "servers"

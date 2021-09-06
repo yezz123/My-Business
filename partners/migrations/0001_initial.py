@@ -7,24 +7,48 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Partner',
+            name="Partner",
             fields=[
-                ('uid', models.AutoField(primary_key=True, serialize=False)),
-                ('guid', models.CharField(max_length=3, unique=True)),
-                ('company', models.CharField(max_length=64, unique=True)),
-                ('manager_name', models.CharField(max_length=64)),
-                ('manager_email', models.EmailField(max_length=254)),
-                ('manager_phone', models.CharField(blank=True, help_text='Must have only digits and an optional country code prefixed with a plus sign', max_length=16)),
-                ('address1', models.CharField(help_text='Street address, P.O. box', max_length=96)),
-                ('address2', models.CharField(blank=True, help_text='Apartment, suite, unit, building, floor', max_length=64)),
-                ('city', models.CharField(max_length=32)),
-                ('state', models.CharField(help_text='Should use 2 letter abbreviations for U.S. states', max_length=32)),
-                ('zipcode', models.CharField(max_length=16)),
+                ("uid", models.AutoField(primary_key=True, serialize=False)),
+                ("guid", models.CharField(max_length=3, unique=True)),
+                ("company", models.CharField(max_length=64, unique=True)),
+                ("manager_name", models.CharField(max_length=64)),
+                ("manager_email", models.EmailField(max_length=254)),
+                (
+                    "manager_phone",
+                    models.CharField(
+                        blank=True,
+                        help_text="Must have only digits and an optional country code prefixed with a plus sign",
+                        max_length=16,
+                    ),
+                ),
+                (
+                    "address1",
+                    models.CharField(
+                        help_text="Street address, P.O. box", max_length=96
+                    ),
+                ),
+                (
+                    "address2",
+                    models.CharField(
+                        blank=True,
+                        help_text="Apartment, suite, unit, building, floor",
+                        max_length=64,
+                    ),
+                ),
+                ("city", models.CharField(max_length=32)),
+                (
+                    "state",
+                    models.CharField(
+                        help_text="Should use 2 letter abbreviations for U.S. states",
+                        max_length=32,
+                    ),
+                ),
+                ("zipcode", models.CharField(max_length=16)),
             ],
         ),
     ]

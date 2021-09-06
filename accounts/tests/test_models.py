@@ -1,6 +1,5 @@
-import shutil
 from django.test import TestCase
-from django.conf import settings
+
 from accounts.models import Account
 
 

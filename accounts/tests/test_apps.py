@@ -1,4 +1,5 @@
 from django.test import TestCase
+
 from accounts.apps import AccountsConfig
 
 

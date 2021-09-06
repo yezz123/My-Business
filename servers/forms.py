@@ -1,5 +1,5 @@
 from django import forms
-from django.conf import settings
+
 from servers.models import Server
 
 

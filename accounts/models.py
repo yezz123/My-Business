@@ -1,6 +1,7 @@
-from django_countries.fields import CountryField
-from django.db import models
 from django.contrib.auth.base_user import AbstractBaseUser
+from django.db import models
+from django_countries.fields import CountryField
+
 from accounts.managers import AccountManager
 from projects.models import Project
 

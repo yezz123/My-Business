@@ -11,7 +11,7 @@ class AccountManager(BaseUserManager):
             email=self.normalize_email(email.lower()),
             first_name=first_name,
             last_name=last_name,
-            **extra_fields
+            **extra_fields,
         )
         user.set_password(password)
         user.save()

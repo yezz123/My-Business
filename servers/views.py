@@ -1,11 +1,12 @@
-from django.views import View
-from django.shortcuts import render, reverse
 from django.contrib import messages
 from django.http import HttpResponseRedirect
-from common.mixins import AccessModelMixin, PermissionsRequiredMixin, NextPageMixin
-from servers.models import Server
+from django.shortcuts import render, reverse
+from django.views import View
+
+from common.mixins import AccessModelMixin, NextPageMixin, PermissionsRequiredMixin
 from servers.forms import ServerForm
-from servers.linode_api import get_linode, get_linodes, get_bootstrap_colored_status
+from servers.linode_api import get_bootstrap_colored_status, get_linode, get_linodes
+from servers.models import Server
 
 
 class ListView(PermissionsRequiredMixin, View):
