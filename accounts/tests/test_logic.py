@@ -1,10 +1,8 @@
-import shutil
-from django.test import TestCase
-from django.conf import settings
-from django.contrib.auth.models import Permission
 from django.contrib.auth.tokens import default_token_generator as token_generator
+from django.test import TestCase
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
+
 from accounts.models import Account
 
 
@@ -98,9 +96,7 @@ class AccountsLoginTestCase(TestCase):
             response, "The email and/or password you entered are incorrect."
         )
         response = self.client.post(
-            "/accounts/login/",
-            {"email": self.user.email, "password": ""},
-            follow=True,
+            "/accounts/login/", {"email": self.user.email, "password": ""}, follow=True,
         )
         self.assertContains(response, "This field is required.")
         response = self.client.post(

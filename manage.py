@@ -7,8 +7,9 @@ import sys
 def main():
     os.environ["DJANGO_SETTINGS_MODULE"] = "common.settings"
     try:
+        from configparser import InterpolationError, NoOptionError, NoSectionError
+
         from django.core.management import execute_from_command_line
-        from configparser import NoSectionError, NoOptionError, InterpolationError
     except ImportError as exc:
         raise ImportError(
             "Couldn't import Django. Are you sure it's installed and "

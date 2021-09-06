@@ -1,7 +1,8 @@
 from configparser import ConfigParser
+
+from django.conf import settings
 from linode_api4 import LinodeClient
 from linode_api4.objects.linode import Instance
-from django.conf import settings
 
 config = ConfigParser(interpolation=None)
 config.read(settings.CONFIG_FILE)

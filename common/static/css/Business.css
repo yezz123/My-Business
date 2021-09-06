@@ -52,7 +52,7 @@ body {
     overflow: auto;
     transition: all 250ms ease-in-out;
 }
-.sidenav-button { 
+.sidenav-button {
     position: fixed;
     left: 0;
     top: 50vh;
@@ -101,7 +101,7 @@ body {
     .sidenav-button {
         display: block;
     }
-    .sidenav-button-show { 
+    .sidenav-button-show {
         left: 256px;
         padding-left: 4px;
         padding-right: 16px;

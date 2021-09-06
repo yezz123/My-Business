@@ -6,28 +6,34 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('accounts', '0004_auto_20200720_2348'),
+        ("accounts", "0004_auto_20200720_2348"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='account',
-            name='address1',
-            field=models.CharField(blank=True, help_text='Street address, P.O. box', max_length=48),
+            model_name="account",
+            name="address1",
+            field=models.CharField(
+                blank=True, help_text="Street address, P.O. box", max_length=48
+            ),
         ),
         migrations.AlterField(
-            model_name='account',
-            name='city',
+            model_name="account",
+            name="city",
             field=models.CharField(blank=True, max_length=32),
         ),
         migrations.AlterField(
-            model_name='account',
-            name='state',
-            field=models.CharField(blank=True, help_text='Should use 2 letter abbreviations for U.S. states', max_length=32),
+            model_name="account",
+            name="state",
+            field=models.CharField(
+                blank=True,
+                help_text="Should use 2 letter abbreviations for U.S. states",
+                max_length=32,
+            ),
         ),
         migrations.AlterField(
-            model_name='account',
-            name='zipcode',
+            model_name="account",
+            name="zipcode",
             field=models.CharField(blank=True, max_length=16),
         ),
     ]

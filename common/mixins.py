@@ -1,7 +1,8 @@
 import re
+
 from django.contrib import messages
-from django.http import HttpResponseRedirect
 from django.contrib.auth.views import redirect_to_login
+from django.http import HttpResponseRedirect
 
 
 class PermissionsRequiredMixin:

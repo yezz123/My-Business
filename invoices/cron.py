@@ -1,6 +1,8 @@
 import datetime
 from configparser import ConfigParser
+
 from django.conf import settings
+
 from invoices.models import Invoice
 
 config = ConfigParser(interpolation=None)
