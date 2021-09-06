@@ -20,4 +20,4 @@ build:
 	docker-compose build
 
 lint:
-	docker-compose run --rm pre-commit run --all-files
+	docker-compose run --rm business pre-commit run --all-files
