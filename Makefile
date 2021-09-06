@@ -1,6 +1,5 @@
 help:
 	@echo "Targets:"
-	@echo "    make test"
 	@echo "    make start"
 	@echo "    make down"
 	@echo "    make pull"
