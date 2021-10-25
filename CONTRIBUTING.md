@@ -14,7 +14,6 @@ These are a few of the ways you can directly contribute to Athena.  Using the pa
 
 Pull requests are *accepted* for the project.  This includes sending code changes via other means than "pull requests".  Plainly put, core code you send will not be used.
 
-
 #### Bug Fixes
 
 If you file an Issue for a bug, have located the bug, and found a fix in 10 lines of code or less.... and you wish to share your fix with the community, then feel free to include it with the filed Issue.  If it's longer than 10 lines and wish to discuss it, then send an email to yasserth19@protonmail.com.
