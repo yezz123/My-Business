@@ -26,8 +26,9 @@ class SettingsView(PermissionsRequiredMixin, View):
                     for chunk in new_template.chunks():
                         destination.write(chunk)
             messages.add_message(
-                request, messages.SUCCESS, f"The settings have been sucessfully saved."
+                request, messages.SUCCESS, "The settings have been sucessfully saved.",
             )
+
             form = SettingsForm()
         return render(
             request=request, template_name="settings.html", context={"form": form}
